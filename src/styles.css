@@ -1,0 +1,228 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-maroon: var(--maroon);
+  --color-turmeric: var(--turmeric);
+  --color-gold: var(--gold);
+  --color-leaf: var(--leaf);
+  --color-cream: var(--cream);
+  --color-charcoal: var(--charcoal);
+  --color-ink: var(--ink);
+
+  --font-display: "Fraunces", "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --shadow-luxe: 0 30px 80px -20px oklch(0.15 0.05 25 / 0.55);
+  --shadow-gold: 0 20px 60px -20px oklch(0.78 0.15 82 / 0.35);
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* Brand palette — premium warm luxe */
+  --ink: oklch(0.16 0.015 40);           /* near-black warm */
+  --maroon: oklch(0.32 0.11 22);         /* deep maroon */
+  --maroon-deep: oklch(0.24 0.09 22);
+  --turmeric: oklch(0.78 0.15 82);       /* turmeric */
+  --gold: oklch(0.82 0.14 88);           /* refined gold */
+  --gold-soft: oklch(0.9 0.09 88);
+  --leaf: oklch(0.5 0.11 145);           /* banana-leaf green */
+  --cream: oklch(0.97 0.018 88);         /* soft cream */
+  --cream-warm: oklch(0.94 0.03 82);
+  --charcoal: oklch(0.22 0.015 40);
+
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--ink);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--ink);
+  --primary: var(--maroon);
+  --primary-foreground: var(--cream);
+  --secondary: var(--leaf);
+  --secondary-foreground: var(--cream);
+  --muted: oklch(0.93 0.02 85);
+  --muted-foreground: oklch(0.42 0.015 40);
+  --accent: var(--gold);
+  --accent-foreground: var(--ink);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.88 0.02 80);
+  --input: oklch(0.88 0.02 80);
+  --ring: var(--gold);
+}
+
+.dark {
+  --background: var(--ink);
+  --foreground: var(--cream);
+  --card: oklch(0.22 0.02 30);
+  --card-foreground: var(--cream);
+  --popover: oklch(0.22 0.02 30);
+  --popover-foreground: var(--cream);
+  --primary: var(--gold);
+  --primary-foreground: var(--ink);
+  --secondary: var(--maroon);
+  --secondary-foreground: var(--cream);
+  --muted: oklch(0.24 0.015 40);
+  --muted-foreground: oklch(0.72 0.02 80);
+  --accent: var(--gold);
+  --accent-foreground: var(--ink);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: var(--gold);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+    font-weight: 500;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  :focus-visible {
+    outline: 2px solid oklch(0.82 0.14 88 / 0.8);
+    outline-offset: 3px;
+    border-radius: 0.25rem;
+  }
+
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: oklch(0.82 0.14 88 / 0.25); border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: oklch(0.82 0.14 88 / 0.45); }
+
+  ::selection {
+    background: var(--gold);
+    color: var(--ink);
+  }
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+@utility gold-text {
+  background: linear-gradient(135deg, oklch(0.88 0.13 88) 0%, oklch(0.72 0.16 78) 50%, oklch(0.88 0.13 88) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility gold-hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, oklch(0.82 0.14 88 / 0.6) 30%, oklch(0.82 0.14 88 / 0.6) 70%, transparent);
+}
+
+@utility gold-border {
+  border: 1px solid oklch(0.82 0.14 88 / 0.35);
+}
+
+@utility luxe-card {
+  background: linear-gradient(180deg, oklch(1 0 0) 0%, oklch(0.98 0.01 85) 100%);
+  border: 1px solid oklch(0.88 0.02 80);
+  box-shadow: 0 1px 0 oklch(1 0 0 / 0.8) inset, 0 20px 40px -30px oklch(0.2 0.05 30 / 0.15);
+}
+
+@utility ink-panel {
+  background:
+    radial-gradient(ellipse at top left, oklch(0.32 0.09 25 / 0.5) 0%, transparent 55%),
+    radial-gradient(ellipse at bottom right, oklch(0.78 0.15 82 / 0.15) 0%, transparent 60%),
+    linear-gradient(180deg, oklch(0.18 0.02 35) 0%, oklch(0.14 0.015 35) 100%);
+  color: var(--cream);
+}
+
+@utility grain {
+  position: relative;
+}
+@utility grain-overlay {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.9'/></svg>");
+}
+
+@utility banana-leaf-bg {
+  background-color: var(--leaf);
+  background-image:
+    radial-gradient(ellipse at 30% 20%, oklch(0.58 0.14 145) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 80%, oklch(0.46 0.13 145) 0%, transparent 60%);
+}
+
+@utility spice-divider {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold) 20%,
+    var(--maroon) 50%,
+    var(--gold) 80%,
+    transparent 100%
+  );
+  height: 1px;
+}
