@@ -14,8 +14,12 @@ function pemToDer(pem: string): Uint8Array {
   return bytes;
 }
 
+// Fix: use TextEncoder for strings (safe for any Unicode) and a loop for
+// Uint8Array (spread throws RangeError on large buffers in some runtimes).
 function base64url(input: Uint8Array | string): string {
-  const str = typeof input === "string" ? input : String.fromCharCode(...input);
+  const bytes = typeof input === "string" ? new TextEncoder().encode(input) : input;
+  let str = "";
+  for (let i = 0; i < bytes.length; i++) str += String.fromCharCode(bytes[i]);
   return btoa(str).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
@@ -70,8 +74,11 @@ async function appendToSheet(sheetId: string, row: string[]): Promise<void> {
   if (!serviceAccountKey) throw new Error("GOOGLE_SERVICE_ACCOUNT_KEY not set");
 
   const token = await getGoogleAccessToken(serviceAccountKey);
+  // Fix: use Sheet1!A1 (unbounded) instead of Sheet1!A1:P1 (row-bounded).
+  // The row-bounded range caused the API to always append after row 1,
+  // inserting new bookings at row 2 rather than the true end of the sheet.
   const url =
-    `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1!A1:P1:append` +
+    `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1!A1:append` +
     `?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
 
   const res = await fetch(url, {
@@ -110,6 +117,12 @@ async function sendSms(to: string, body: string): Promise<void> {
   }
 }
 
+// ─── Idempotency ──────────────────────────────────────────────────────────────
+// Best-effort in-memory guard for Stripe webhook retries within the same
+// serverless function instance. Does not survive cold starts — see the note
+// in appendToSheet for why Sheets failure still propagates as 500.
+const processedEventIds = new Set<string>();
+
 // ─── Webhook handler ──────────────────────────────────────────────────────────
 
 export default defineEventHandler(async (event) => {
@@ -141,6 +154,20 @@ export default defineEventHandler(async (event) => {
   }
 
   const session = stripeEvent.data.object as Stripe.Checkout.Session;
+
+  // Fix #7 (payment_status): only treat the session as confirmed when money
+  // has actually cleared. Guards against async payment methods (BECS, etc.)
+  // if they are ever enabled alongside card payments.
+  if (session.payment_status !== "paid") {
+    return { received: true };
+  }
+
+  // Fix #6 (idempotency): skip duplicate processing for warm retries
+  if (processedEventIds.has(stripeEvent.id)) {
+    console.log(`Duplicate webhook event skipped: ${stripeEvent.id}`);
+    return { received: true };
+  }
+
   const m = (session.metadata ?? {}) as Record<string, string>;
 
   const customerName = m.customerName ?? "";
@@ -179,38 +206,49 @@ export default defineEventHandler(async (event) => {
     "Confirmed",
   ];
 
+  // Fix #3 (errors swallowed): let Sheets failure propagate as 500 so Stripe
+  // retries the webhook and the booking record is eventually written.
+  // SMS sends remain non-fatal — a missed notification is recoverable,
+  // a missing booking record is not.
   const sheetId = process.env.GOOGLE_SHEETS_ID;
   if (sheetId) {
-    await appendToSheet(sheetId, sheetRow).catch((err) =>
-      console.error("Sheets error (non-fatal):", err),
-    );
+    await appendToSheet(sheetId, sheetRow);
+  } else {
+    console.warn("GOOGLE_SHEETS_ID not set — booking not recorded in sheet:", stripePaymentId);
   }
 
-  // ── Customer SMS (§5.1) ───────────────────────────────────────────────────
-  if (customerPhone) {
-    const customerMsg =
-      `Hi ${customerName}, your Ganesh Dosa booking is confirmed for ${eventDate} at ${suburb}. ` +
+  // Mark processed only after Sheets succeeds, so a failed Sheets write
+  // (which returns 500 and triggers a Stripe retry) does not skip the retry.
+  processedEventIds.add(stripeEvent.id);
+
+  // ── SMS notifications — fire in parallel, non-fatal ───────────────────────
+  const customerMsg = customerPhone
+    ? `Hi ${customerName}, your Ganesh Dosa booking is confirmed for ${eventDate} at ${suburb}. ` +
       `Guests: ${guests}. Amount paid: $${amountDueNow} AUD. ` +
       `Payment ref: ${stripePaymentId}. ` +
-      `Questions? Call us on ${businessPhone}. – Ganesh Dosa`;
+      `Questions? Call us on ${businessPhone}. – Ganesh Dosa`
+    : null;
 
-    await sendSms(customerPhone, customerMsg).catch((err) =>
-      console.error("Customer SMS error (non-fatal):", err),
-    );
-  }
-
-  // ── Owner SMS (§5.2) ──────────────────────────────────────────────────────
   const ownerPhone = process.env.OWNER_PHONE;
-  if (ownerPhone) {
-    const ownerMsg =
-      `New booking confirmed: ${customerName}, ${customerPhone}. ` +
+  const ownerMsg = ownerPhone
+    ? `New booking confirmed: ${customerName}, ${customerPhone}. ` +
       `Date: ${eventDate}, ${suburb}. Guests: ${guests}. ` +
-      `Package: ${service}. Paid: $${amountDueNow} AUD (ref ${stripePaymentId}).`;
+      `Package: ${service}. Paid: $${amountDueNow} AUD (ref ${stripePaymentId}).`
+    : null;
 
-    await sendSms(ownerPhone, ownerMsg).catch((err) =>
-      console.error("Owner SMS error (non-fatal):", err),
-    );
-  }
+  // Fix #6 (efficiency): send both SMS in parallel rather than sequentially
+  await Promise.all([
+    customerMsg
+      ? sendSms(customerPhone, customerMsg).catch((err) =>
+          console.error("Customer SMS error (non-fatal):", err),
+        )
+      : Promise.resolve(),
+    ownerMsg && ownerPhone
+      ? sendSms(ownerPhone, ownerMsg).catch((err) =>
+          console.error("Owner SMS error (non-fatal):", err),
+        )
+      : Promise.resolve(),
+  ]);
 
   return { received: true };
 });
