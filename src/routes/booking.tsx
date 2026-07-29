@@ -56,6 +56,7 @@ function BookingPage() {
 
   const [step, setStep] = useState<0 | 1 | 2>(0);
   const formSectionRef = useRef<HTMLElement>(null);
+  const dateInputRef = useRef<HTMLInputElement>(null);
   const isFirstRender = useRef(true);
 
   // Fix: advancing/going back a step unmounts the button that was just
@@ -344,9 +345,13 @@ function BookingPage() {
                   <div className="mt-6 grid gap-4 sm:grid-cols-2">
                     <label className="block">
                       <span className="eyebrow text-[0.65rem] text-muted-foreground">Date</span>
-                      <div className="mt-2 flex items-center gap-3 rounded-xl border border-input bg-background px-4 py-3">
+                      <div
+                        className="mt-2 flex items-center gap-3 rounded-xl border border-input bg-background px-4 py-3 cursor-pointer"
+                        onClick={() => dateInputRef.current?.showPicker?.()}
+                      >
                         <CalendarDays className="h-5 w-5 text-primary" />
                         <input
+                          ref={dateInputRef}
                           type="date"
                           min={minDate}
                           value={eventDate}
