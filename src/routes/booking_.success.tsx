@@ -7,7 +7,7 @@ const searchSchema = z.object({
   session_id: z.string().optional(),
 });
 
-export const Route = createFileRoute("/booking/success")({
+export const Route = createFileRoute("/booking_/success")({
   validateSearch: (s) => searchSchema.parse(s),
   head: () => ({
     meta: [

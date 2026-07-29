@@ -24,7 +24,7 @@ import { Route as BookingRouteImport } from './routes/booking'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as BookingSuccessRouteImport } from './routes/booking.success'
+import { Route as BookingSuccessRouteImport } from './routes/booking_.success'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -102,16 +102,16 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const BookingSuccessRoute = BookingSuccessRouteImport.update({
-  id: '/success',
-  path: '/success',
-  getParentRoute: () => BookingRoute,
+  id: '/booking_/success',
+  path: '/booking/success',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
-  '/booking': typeof BookingRouteWithChildren
+  '/booking': typeof BookingRoute
   '/booking-policy': typeof BookingPolicyRoute
   '/cancellation-policy': typeof CancellationPolicyRoute
   '/catering': typeof CateringRoute
@@ -129,7 +129,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
-  '/booking': typeof BookingRouteWithChildren
+  '/booking': typeof BookingRoute
   '/booking-policy': typeof BookingPolicyRoute
   '/cancellation-policy': typeof CancellationPolicyRoute
   '/catering': typeof CateringRoute
@@ -148,7 +148,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
-  '/booking': typeof BookingRouteWithChildren
+  '/booking': typeof BookingRoute
   '/booking-policy': typeof BookingPolicyRoute
   '/cancellation-policy': typeof CancellationPolicyRoute
   '/catering': typeof CateringRoute
@@ -160,7 +160,7 @@ export interface FileRoutesById {
   '/menu': typeof MenuRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
-  '/booking/success': typeof BookingSuccessRoute
+  '/booking_/success': typeof BookingSuccessRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -216,14 +216,14 @@ export interface FileRouteTypes {
     | '/menu'
     | '/privacy'
     | '/terms'
-    | '/booking/success'
+    | '/booking_/success'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
-  BookingRoute: typeof BookingRouteWithChildren
+  BookingRoute: typeof BookingRoute
   BookingPolicyRoute: typeof BookingPolicyRoute
   CancellationPolicyRoute: typeof CancellationPolicyRoute
   CateringRoute: typeof CateringRoute
@@ -235,6 +235,7 @@ export interface RootRouteChildren {
   MenuRoute: typeof MenuRoute
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
+  BookingSuccessRoute: typeof BookingSuccessRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -344,32 +345,21 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/booking/success': {
-      id: '/booking/success'
-      path: '/success'
+    '/booking_/success': {
+      id: '/booking_/success'
+      path: '/booking/success'
       fullPath: '/booking/success'
       preLoaderRoute: typeof BookingSuccessRouteImport
-      parentRoute: typeof BookingRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
-
-interface BookingRouteChildren {
-  BookingSuccessRoute: typeof BookingSuccessRoute
-}
-
-const BookingRouteChildren: BookingRouteChildren = {
-  BookingSuccessRoute: BookingSuccessRoute,
-}
-
-const BookingRouteWithChildren =
-  BookingRoute._addFileChildren(BookingRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
-  BookingRoute: BookingRouteWithChildren,
+  BookingRoute: BookingRoute,
   BookingPolicyRoute: BookingPolicyRoute,
   CancellationPolicyRoute: CancellationPolicyRoute,
   CateringRoute: CateringRoute,
@@ -381,6 +371,7 @@ const rootRouteChildren: RootRouteChildren = {
   MenuRoute: MenuRoute,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
+  BookingSuccessRoute: BookingSuccessRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
