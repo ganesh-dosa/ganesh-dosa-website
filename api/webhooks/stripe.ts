@@ -98,6 +98,16 @@ async function appendToSheet(sheetId: string, row: string[]): Promise<void> {
 
 // ─── Twilio SMS ───────────────────────────────────────────────────────────────
 
+// Twilio requires E.164 (+<country code><number>). Customers type Australian
+// numbers in local format (04XX XXX XXX), so normalize before sending.
+function toE164Au(phone: string): string {
+  const digits = phone.replace(/[^\d+]/g, "");
+  if (digits.startsWith("+")) return digits;
+  if (digits.startsWith("0")) return `+61${digits.slice(1)}`;
+  if (digits.startsWith("61")) return `+${digits}`;
+  return `+61${digits}`;
+}
+
 async function sendSms(to: string, body: string): Promise<void> {
   const sid = process.env.TWILIO_ACCOUNT_SID;
   const token = process.env.TWILIO_AUTH_TOKEN;
@@ -110,7 +120,7 @@ async function sendSms(to: string, body: string): Promise<void> {
       Authorization: `Basic ${btoa(`${sid}:${token}`)}`,
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: new URLSearchParams({ To: to, From: from, Body: body }),
+    body: new URLSearchParams({ To: toE164Au(to), From: from, Body: body }),
   });
   if (!res.ok) {
     const err = await res.text();
