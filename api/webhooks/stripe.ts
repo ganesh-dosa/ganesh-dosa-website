@@ -5,6 +5,9 @@ import Stripe from "stripe";
 
 function pemToDer(pem: string): Uint8Array {
   const b64 = pem
+    // Vercel env vars are single-line — the key is usually pasted with
+    // literal "\n" escape sequences instead of real newlines.
+    .replace(/\\n/g, "\n")
     .replace(/-----BEGIN PRIVATE KEY-----/, "")
     .replace(/-----END PRIVATE KEY-----/, "")
     .replace(/\s/g, "");
@@ -23,17 +26,12 @@ function base64url(input: Uint8Array | string): string {
   return btoa(str).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
-async function getGoogleAccessToken(serviceAccountJson: string): Promise<string> {
-  const sa = JSON.parse(serviceAccountJson) as {
-    client_email: string;
-    private_key: string;
-  };
-
+async function getGoogleAccessToken(clientEmail: string, privateKeyPem: string): Promise<string> {
   const now = Math.floor(Date.now() / 1000);
   const header = base64url(JSON.stringify({ alg: "RS256", typ: "JWT" }));
   const payload = base64url(
     JSON.stringify({
-      iss: sa.client_email,
+      iss: clientEmail,
       scope: "https://www.googleapis.com/auth/spreadsheets",
       aud: "https://oauth2.googleapis.com/token",
       exp: now + 3600,
@@ -42,7 +40,7 @@ async function getGoogleAccessToken(serviceAccountJson: string): Promise<string>
   );
 
   const sigInput = new TextEncoder().encode(`${header}.${payload}`);
-  const der = pemToDer(sa.private_key);
+  const der = pemToDer(privateKeyPem);
   const cryptoKey = await crypto.subtle.importKey(
     "pkcs8",
     der as BufferSource,
@@ -70,10 +68,13 @@ async function getGoogleAccessToken(serviceAccountJson: string): Promise<string>
 }
 
 async function appendToSheet(sheetId: string, row: string[]): Promise<void> {
-  const serviceAccountKey = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
-  if (!serviceAccountKey) throw new Error("GOOGLE_SERVICE_ACCOUNT_KEY not set");
+  const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
+  const privateKey = process.env.GOOGLE_PRIVATE_KEY;
+  if (!clientEmail || !privateKey) {
+    throw new Error("GOOGLE_SERVICE_ACCOUNT_EMAIL / GOOGLE_PRIVATE_KEY not set");
+  }
 
-  const token = await getGoogleAccessToken(serviceAccountKey);
+  const token = await getGoogleAccessToken(clientEmail, privateKey);
   // Fix: use Sheet1!A1 (unbounded) instead of Sheet1!A1:P1 (row-bounded).
   // The row-bounded range caused the API to always append after row 1,
   // inserting new bookings at row 2 rather than the true end of the sheet.
@@ -210,11 +211,11 @@ export default defineEventHandler(async (event) => {
   // retries the webhook and the booking record is eventually written.
   // SMS sends remain non-fatal — a missed notification is recoverable,
   // a missing booking record is not.
-  const sheetId = process.env.GOOGLE_SHEETS_ID;
+  const sheetId = process.env.GOOGLE_SHEET_ID;
   if (sheetId) {
     await appendToSheet(sheetId, sheetRow);
   } else {
-    console.warn("GOOGLE_SHEETS_ID not set — booking not recorded in sheet:", stripePaymentId);
+    console.warn("GOOGLE_SHEET_ID not set — booking not recorded in sheet:", stripePaymentId);
   }
 
   // Mark processed only after Sheets succeeds, so a failed Sheets write
