@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { z } from "zod";
 import {
   AlertCircle,
@@ -55,6 +55,21 @@ function BookingPage() {
   const minDate = useMemo(minEventDateISO, []);
 
   const [step, setStep] = useState<0 | 1 | 2>(0);
+  const formSectionRef = useRef<HTMLElement>(null);
+  const isFirstRender = useRef(true);
+
+  // Fix: advancing/going back a step unmounts the button that was just
+  // clicked. Some browsers reset scroll to the very top of the page when the
+  // focused element disappears — scroll to the form section ourselves so the
+  // new step's content lands under the header instead of the page hero.
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    formSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [step]);
+
   const [service, setService] = useState(search.service ?? "live-counter");
   const [selectedPackage, setSelectedPackage] = useState(search.package ?? "package-1");
   const [guests, setGuests] = useState<number>(
@@ -209,7 +224,7 @@ function BookingPage() {
       </section>
 
       {/* MAIN */}
-      <section className="mx-auto max-w-7xl px-6 py-16 sm:px-8 sm:py-24">
+      <section ref={formSectionRef} className="mx-auto max-w-7xl px-6 py-16 sm:px-8 sm:py-24">
         <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-14">
           {/* Left column: steps */}
           <form onSubmit={submit} className="space-y-10">
