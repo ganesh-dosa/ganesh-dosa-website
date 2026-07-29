@@ -1,6 +1,6 @@
 import { defineEventHandler, readBody, createError, getRequestURL } from "h3";
 import Stripe from "stripe";
-import { business } from "../src/lib/config";
+import { business } from "../src/lib/config.js";
 
 const PRICE_PER_PERSON = 20;
 const MIN_GUESTS = 30;

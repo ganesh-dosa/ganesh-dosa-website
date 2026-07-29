@@ -45,7 +45,7 @@ async function getGoogleAccessToken(serviceAccountJson: string): Promise<string>
   const der = pemToDer(sa.private_key);
   const cryptoKey = await crypto.subtle.importKey(
     "pkcs8",
-    der,
+    der as BufferSource,
     { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" },
     false,
     ["sign"],
