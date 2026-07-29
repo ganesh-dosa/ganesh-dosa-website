@@ -103,8 +103,17 @@ export default defineEventHandler(async (event) => {
   const deposit = Math.round(total * (DEPOSIT_PERCENT / 100));
   const amountDueNow = payFull ? total : deposit;
 
+  // Fix (open redirect): never trust the Host/X-Forwarded-Host header for the
+  // Stripe success/cancel URL — only allow known dev + production origins.
+  const ALLOWED_ORIGINS = new Set([
+    "https://www.ganeshdosa.com.au",
+    "https://ganeshdosa.com.au",
+    "http://localhost:3000",
+    "http://localhost:8080",
+  ]);
   const reqUrl = getRequestURL(event);
-  const origin = `${reqUrl.protocol}//${reqUrl.host}`;
+  const candidateOrigin = `${reqUrl.protocol}//${reqUrl.host}`;
+  const origin = ALLOWED_ORIGINS.has(candidateOrigin) ? candidateOrigin : "https://www.ganeshdosa.com.au";
   const payLabel = payFull ? "Full payment" : `${DEPOSIT_PERCENT}% deposit`;
   const serviceLabel = isCatering && packageId
     ? `Catering – ${String(packageId).replace(/-/g, " ")}`
