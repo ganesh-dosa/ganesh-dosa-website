@@ -237,7 +237,10 @@ export default defineEventHandler(async (event) => {
     ? `Hi ${customerName}, your Ganesh Dosa booking is confirmed for ${eventDate} at ${suburb}. ` +
       `Guests: ${guests}. Amount paid: $${amountDueNow} AUD. ` +
       `Payment ref: ${stripePaymentId}. ` +
-      `Questions? Call us on ${businessPhone}. – Ganesh Dosa`
+      // Plain hyphen, not an em-dash: an em-dash forces UCS2 encoding
+      // (70 chars/segment instead of 160), which pushed this over Twilio's
+      // trial-account length cap and got flagged as undelivered.
+      `Questions? Call us on ${businessPhone}. - Ganesh Dosa`
     : null;
 
   const ownerPhone = process.env.OWNER_PHONE;
