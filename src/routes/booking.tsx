@@ -164,8 +164,11 @@ function BookingPage() {
       });
 
       if (!res.ok) {
-        const data = await res.json().catch(() => ({ error: "Unknown error" })) as { error?: string };
-        throw new Error(data.error ?? "Checkout session creation failed");
+        // Fix: the API returns { message } (h3's createError shape), not
+        // { error } — this was always showing the generic fallback text
+        // instead of the real validation reason.
+        const data = await res.json().catch(() => ({ message: "Unknown error" })) as { message?: string };
+        throw new Error(data.message ?? "Checkout session creation failed");
       }
 
       const { url } = await res.json() as { url: string };
