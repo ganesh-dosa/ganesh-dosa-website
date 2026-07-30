@@ -17,6 +17,8 @@ const CATERING_PACKAGES: Record<string, { priceFrom: number; minGuests: number }
 const DELIVERY_TIER1_KM = 50;
 const DELIVERY_TIER1_FEE = 60;
 const DELIVERY_TIER2_FEE = 100;
+const LIVE_COUNTER_FREE_KM = 10;
+const LIVE_COUNTER_FEE = 30;
 const MAX_RADIUS_KM = 150;
 const DEPOSIT_PERCENT = 20;
 
@@ -98,7 +100,9 @@ export default defineEventHandler(async (event) => {
 
   const base = parsedGuests * pricePerPerson;
   const extrasTotal = (selectedExtras as Record<string, boolean>)?.cutlery ? 2 * parsedGuests : 0;
-  const deliveryFee = parsedDistance <= DELIVERY_TIER1_KM ? DELIVERY_TIER1_FEE : DELIVERY_TIER2_FEE;
+  const deliveryFee = serviceStr === "live-counter"
+    ? (parsedDistance <= LIVE_COUNTER_FREE_KM ? 0 : LIVE_COUNTER_FEE)
+    : (parsedDistance <= DELIVERY_TIER1_KM ? DELIVERY_TIER1_FEE : DELIVERY_TIER2_FEE);
   const total = base + extrasTotal + deliveryFee;
   const deposit = Math.round(total * (DEPOSIT_PERCENT / 100));
   const amountDueNow = payFull ? total : deposit;

@@ -12,7 +12,7 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
-import { liveCounter, faqs, delivery, payments, cateringPackages } from "@/lib/config";
+import { liveCounter, faqs, delivery, liveCounterDelivery, payments, cateringPackages } from "@/lib/config";
 
 const searchSchema = z.object({
   service: z.enum(["live-counter", "in-store", "catering"]).optional(),
@@ -102,13 +102,18 @@ function BookingPage() {
     if (!selectedExtras[e.id] || e.price === 0) return sum;
     return sum + (e.unit === "flat" ? e.price : e.price * clampedGuests);
   }, 0);
-  const deliveryFee = distanceKm <= delivery.tier1RadiusKm ? delivery.tier1Charge : delivery.tier2Charge;
+  const deliveryFee = service === "live-counter"
+    ? (distanceKm <= liveCounterDelivery.freeRadiusKm ? 0 : liveCounterDelivery.chargeAbove)
+    : (distanceKm <= delivery.tier1RadiusKm ? delivery.tier1Charge : delivery.tier2Charge);
   const total = basePrice + extrasTotal + deliveryFee;
   const deposit = Math.round(total * (payments.depositPercent / 100));
   const amountDueNow = payFull ? total : deposit;
 
   const toggleExtra = (id: string) =>
     setSelectedExtras((s) => ({ ...s, [id]: !s[id] }));
+
+  const clearError = (key: string) =>
+    setErrors((prev) => { const next = { ...prev }; delete next[key]; return next; });
 
   const validateStep0 = () => {
     const e: Record<string, string> = {};
@@ -120,16 +125,30 @@ function BookingPage() {
     if (distanceKm > delivery.maxRadiusKm)
       e.distance = `We deliver within ${delivery.maxRadiusKm}km of Melbourne CBD.`;
     setErrors(e);
+    if (Object.keys(e).length > 0) {
+      const firstKey = Object.keys(e)[0];
+      setTimeout(() => {
+        document.getElementById(`field-${firstKey}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 50);
+    }
     return Object.keys(e).length === 0;
   };
 
   const validateFinal = () => {
-    const e: Record<string, string> = { ...errors };
+    const e: Record<string, string> = {};
     if (!name.trim()) e.name = "Please enter your name.";
     if (!/^\S+@\S+\.\S+$/.test(email)) e.email = "Please enter a valid email.";
     if (phone.replace(/\D/g, "").length < 7) e.phone = "Please enter a valid phone.";
     if (!suburb.trim()) e.suburb = "Please enter your suburb.";
     setErrors(e);
+    if (Object.keys(e).length > 0) {
+      const firstKey = (["name", "email", "phone", "suburb"] as const).find((k) => e[k]);
+      if (firstKey) {
+        setTimeout(() => {
+          document.getElementById(`field-${firstKey}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 50);
+      }
+    }
     return Object.keys(e).length === 0;
   };
 
@@ -300,7 +319,7 @@ function BookingPage() {
                 )}
 
                 {/* Guests */}
-                <Card>
+                <Card id="field-guests">
                   <CardTitle eyebrow="Step 02" title="Guest count" />
                   <div className="mt-6 flex items-center gap-4">
                     <button
@@ -340,7 +359,7 @@ function BookingPage() {
                 </Card>
 
                 {/* Date */}
-                <Card>
+                <Card id="field-eventDate">
                   <CardTitle eyebrow="Step 03" title="Event date & time" />
                   <div className="mt-6 grid gap-4 sm:grid-cols-2">
                     <label className="block">
@@ -377,9 +396,11 @@ function BookingPage() {
                 </Card>
 
                 {/* Distance / delivery */}
-                <Card>
+                <Card id="field-distance">
                   <CardTitle eyebrow="Step 04" title="Venue distance" />
-                  <p className="mt-2 text-sm text-muted-foreground">{delivery.note}</p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {service === "live-counter" ? liveCounterDelivery.note : delivery.note}
+                  </p>
                   <label className="mt-6 block">
                     <span className="eyebrow text-[0.65rem] text-muted-foreground">Distance from venue (km, approx)</span>
                     <input
@@ -393,12 +414,16 @@ function BookingPage() {
                   </label>
                   <div className="mt-4 flex items-center justify-between rounded-2xl border border-border bg-muted/40 p-4">
                     <span className="text-sm">
-                      {distanceKm <= delivery.tier1RadiusKm
-                        ? `Within ${delivery.tier1RadiusKm}km — $${delivery.tier1Charge} delivery`
-                        : `Beyond ${delivery.tier1RadiusKm}km — $${delivery.tier2Charge} delivery`}
+                      {service === "live-counter"
+                        ? (distanceKm <= liveCounterDelivery.freeRadiusKm
+                            ? `Within ${liveCounterDelivery.freeRadiusKm}km — Free delivery`
+                            : `Beyond ${liveCounterDelivery.freeRadiusKm}km — $${liveCounterDelivery.chargeAbove} delivery`)
+                        : (distanceKm <= delivery.tier1RadiusKm
+                            ? `Within ${delivery.tier1RadiusKm}km — $${delivery.tier1Charge} delivery`
+                            : `Beyond ${delivery.tier1RadiusKm}km — $${delivery.tier2Charge} delivery`)}
                     </span>
                     <span className="font-display text-lg text-primary">
-                      +${deliveryFee}
+                      {deliveryFee === 0 ? "Free" : `+$${deliveryFee}`}
                     </span>
                   </div>
                   {errors.distance && <FieldError>{errors.distance}</FieldError>}
@@ -466,10 +491,10 @@ function BookingPage() {
                 <Card>
                   <CardTitle eyebrow="Step 02" title="Your details" />
                   <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                    <FieldInput label="Full name" value={name} onChange={setName} error={errors.name} />
-                    <FieldInput label="Email" type="email" value={email} onChange={setEmail} error={errors.email} />
-                    <FieldInput label="Phone" type="tel" value={phone} onChange={setPhone} error={errors.phone} />
-                    <FieldInput label="Suburb & postcode" value={suburb} onChange={setSuburb} error={errors.suburb} />
+                    <FieldInput id="field-name" label="Full name" value={name} onChange={(v) => { setName(v); clearError("name"); }} error={errors.name} />
+                    <FieldInput id="field-email" label="Email" type="email" value={email} onChange={(v) => { setEmail(v); clearError("email"); }} error={errors.email} />
+                    <FieldInput id="field-phone" label="Phone" type="tel" value={phone} onChange={(v) => { setPhone(v); clearError("phone"); }} error={errors.phone} />
+                    <FieldInput id="field-suburb" label="Suburb & postcode" value={suburb} onChange={(v) => { setSuburb(v); clearError("suburb"); }} error={errors.suburb} />
                     <label className="block sm:col-span-2">
                       <span className="eyebrow text-[0.65rem] text-muted-foreground">Event type</span>
                       <select
@@ -691,8 +716,8 @@ function BookingPage() {
   );
 }
 
-function Card({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-3xl border border-border bg-card p-7 sm:p-9 shadow-[0_1px_0_oklch(1_0_0/0.8)_inset,0_20px_40px_-30px_oklch(0.2_0.05_30/0.15)]">{children}</div>;
+function Card({ children, id }: { children: React.ReactNode; id?: string }) {
+  return <div id={id} className="rounded-3xl border border-border bg-card p-7 sm:p-9 shadow-[0_1px_0_oklch(1_0_0/0.8)_inset,0_20px_40px_-30px_oklch(0.2_0.05_30/0.15)]">{children}</div>;
 }
 
 function CardTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
@@ -710,15 +735,17 @@ function FieldInput({
   onChange,
   type = "text",
   error,
+  id,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   type?: string;
   error?: string;
+  id?: string;
 }) {
   return (
-    <label className="block">
+    <label id={id} className="block">
       <span className="eyebrow text-[0.65rem] text-muted-foreground">{label}</span>
       <input
         type={type}

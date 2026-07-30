@@ -3,7 +3,7 @@
 
 export const business = {
   name: "Ganesh Dosa",
-  tagline: "made with perfection served with love",
+  tagline: "Made for your celebration",
   city: "Melbourne",
   region: "Victoria, Australia",
   phone: "+61 416 175 868",
@@ -98,7 +98,7 @@ export const liveCounter = {
   inclusions: [
     "Unlimited dosas, served fresh from a live counter",
     "10 dosa varieties",
-    "Idli, medu vada & filter coffee",
+    "Idli, medu vada & masala tea",
     "Chef and service staff on-site",
     "Chutneys, sambar and accompaniments",
   ],
@@ -118,6 +118,13 @@ export const delivery = {
   tier2Charge: 100,    // beyond 50km: $100
   maxRadiusKm: 150,
   note: "Delivery is $60 within 50km of your venue. Beyond 50km, a flat $100 delivery charge applies.",
+} as const;
+
+export const liveCounterDelivery = {
+  freeRadiusKm: 10,
+  chargeAbove: 30,
+  maxRadiusKm: 150,
+  note: "Delivery is free within 10km of your venue. Beyond 10km, a flat $30 delivery charge applies.",
 } as const;
 
 export const payments = {
@@ -268,7 +275,7 @@ export const faqs = [
   },
   {
     q: "What's included in the live counter package?",
-    a: "AUD $20 per person includes unlimited dosas, 10 varieties, chutneys and sambar, plus idli, medu vada and filter coffee (pending final confirmation). Chef and service staff are included.",
+    a: "AUD $20 per person includes unlimited dosas, 10 varieties, chutneys and sambar, plus idli, medu vada and masala tea (pending final confirmation). Chef and service staff are included.",
   },
   {
     q: "Do you cater for dietary requirements?",

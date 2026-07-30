@@ -10,7 +10,6 @@ const nav = [
   { to: "/in-store-parties", label: "In-Store" },
   { to: "/catering", label: "Catering" },
   { to: "/menu", label: "Menu" },
-  { to: "/gallery", label: "Gallery" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ] as const;
@@ -47,7 +46,7 @@ export function SiteHeader() {
         >
           <Logo size={56} className="h-12 w-12 shrink-0 object-contain sm:h-14 sm:w-14 lg:h-20 lg:w-20" />
           <span className="block min-w-0">
-            <span className="block font-display text-base leading-none tracking-tight text-primary sm:text-xl lg:text-3xl">
+            <span className="block font-display text-lg leading-none tracking-tight text-primary sm:text-2xl lg:text-4xl">
               {business.name}
             </span>
             <span className="eyebrow mt-1 block text-[0.5rem] text-muted-foreground sm:text-[0.6rem]">

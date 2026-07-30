@@ -49,7 +49,7 @@ function Home() {
             muted
             loop
             playsInline
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full object-cover object-[50%_30%] sm:object-center"
             style={{ filter: "brightness(0.88) saturate(1.1)" }}
             aria-hidden
           />
@@ -263,7 +263,7 @@ function Home() {
                 </h2>
                 <p className="mt-6 max-w-lg text-cream/70">
                   Minimum {liveCounter.minGuests}, maximum {liveCounter.maxGuests} guests.
-                  Ten dosa varieties, plus idli, medu vada and filter coffee
+                  Ten dosa varieties, plus idli, medu vada and masala tea
                   (pending final confirmation).
                 </p>
                 <Link

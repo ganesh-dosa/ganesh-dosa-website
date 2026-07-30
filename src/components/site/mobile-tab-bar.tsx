@@ -1,12 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { Home, UtensilsCrossed, Images, Phone, CalendarHeart } from "lucide-react";
+import { Home, UtensilsCrossed, Phone, CalendarHeart, Info } from "lucide-react";
 
-type Tab = { to: "/" | "/menu" | "/booking" | "/gallery" | "/contact"; label: string; icon: typeof Home; primary?: boolean };
+type Tab = { to: "/" | "/menu" | "/booking" | "/about" | "/contact"; label: string; icon: typeof Home; primary?: boolean };
 const tabs: Tab[] = [
   { to: "/", label: "Home", icon: Home },
   { to: "/menu", label: "Menu", icon: UtensilsCrossed },
   { to: "/booking", label: "Book", icon: CalendarHeart, primary: true },
-  { to: "/gallery", label: "Gallery", icon: Images },
+  { to: "/about", label: "About", icon: Info },
   { to: "/contact", label: "Contact", icon: Phone },
 ];
 

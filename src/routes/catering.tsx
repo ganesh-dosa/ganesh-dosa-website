@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, Check, Minus, Plus, Star } from "lucide-react";
+import { ArrowUpRight, Check, Plus, Star } from "lucide-react";
 import { cateringPackages, faqs } from "@/lib/config";
 
 
@@ -18,15 +18,6 @@ export const Route = createFileRoute("/catering")({
   component: CateringPage,
 });
 
-const comparison = [
-  ["Dosa varieties", "3", "6", "10 (live)"],
-  ["Sides", "Idli · Vada", "Idli · Vada · Uttapam", "Idli · Vada"],
-  ["Chutneys", "2 + sambar", "3 + sambar + rasam", "Full spread"],
-  ["Coffee & sweet", "Add-on", "Included", "Included"],
-  ["Service staff", "Delivered", "On-site", "Chef-led counter"],
-  ["Min guests", "20", "30", "30"],
-  ["Format", "Buffet trays", "Buffet + staff", "Live counter"],
-];
 
 export const cateringTestimonials = [
   ["The Celebration tier hit exactly the note we wanted at our engagement — abundant, unhurried, and photographed beautifully.", "Meera & Arjun", "Engagement · South Yarra"],
@@ -140,49 +131,6 @@ function CateringPage() {
         </div>
       </section>
 
-      {/* COMPARISON */}
-      <section className="bg-[oklch(0.94_0.025_85)] py-24 sm:py-32">
-        <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <div className="text-center">
-            <span className="eyebrow text-primary">Compare</span>
-            <h2 className="mt-4 font-display text-4xl text-foreground sm:text-5xl">
-              Side by <span className="italic gold-text">side.</span>
-            </h2>
-          </div>
-          <div className="mt-14 overflow-hidden rounded-3xl border border-border bg-background">
-            <div className="grid grid-cols-4 border-b border-border bg-muted/40 px-4 py-5 sm:px-8">
-              <span className="eyebrow text-[0.6rem] text-muted-foreground">Feature</span>
-              {["Essential", "Celebration", "Signature"].map((t, i) => (
-                <span
-                  key={t}
-                  className={`text-center font-display text-lg ${i === 1 ? "text-primary" : "text-foreground"}`}
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-            {comparison.map((row, ri) => (
-              <div
-                key={row[0]}
-                className={`grid grid-cols-4 items-center px-4 py-4 text-sm sm:px-8 ${
-                  ri % 2 === 1 ? "bg-muted/20" : ""
-                }`}
-              >
-                <span className="font-medium text-foreground/80">{row[0]}</span>
-                {row.slice(1).map((cell, ci) => (
-                  <span
-                    key={ci}
-                    className={`text-center ${ci === 1 ? "font-medium text-primary" : "text-foreground/70"}`}
-                  >
-                    {cell}
-                  </span>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
 
       {/* TESTIMONIALS */}
       <section className="bg-[oklch(0.94_0.025_85)] py-24 sm:py-32">
@@ -234,7 +182,6 @@ function CateringPage() {
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-6 pb-24 sm:px-8 sm:pb-32">
         <div className="ink-panel relative overflow-hidden rounded-3xl p-12 text-center sm:p-16">
-          <Minus className="pointer-events-none absolute inset-0 hidden" aria-hidden />
           <h2 className="font-display text-4xl text-cream sm:text-5xl">
             Ready to <span className="italic gold-text">plan the menu?</span>
           </h2>

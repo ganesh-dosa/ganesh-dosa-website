@@ -31,7 +31,6 @@ export function SiteFooter() {
               ["/in-store-parties", "In-Store Parties"],
               ["/catering", "Catering"],
               ["/menu", "Menu"],
-              ["/gallery", "Gallery"],
             ].map(([to, label]) => (
               <li key={to}>
                 <Link to={to} className="text-cream/75 transition-colors hover:text-accent">
@@ -104,7 +103,7 @@ export function SiteFooter() {
           <p className="text-xs text-cream/50">
             © {new Date().getFullYear()} {business.name}. Crafted with care in Melbourne.
           </p>
-          <p className="text-xs text-cream/40">Made with perfection. Served with love.</p>
+          <p className="text-xs text-cream/40">{business.tagline}</p>
         </div>
       </div>
     </footer>

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { business } from "@/lib/config";
-import { ImagePlaceholder, PageHeader, Section, SectionHeading } from "@/components/site/section";
+import { PageHeader, Section, SectionHeading } from "@/components/site/section";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -22,24 +22,21 @@ function AboutPage() {
       />
 
       <Section>
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <ImagePlaceholder label="Portrait of the chef / founder at the tawa" />
-          <div className="space-y-4 text-muted-foreground">
-            <p>
-              Our chef trained in the tiffin houses of Bengaluru before moving to
-              Melbourne, and every batter that leaves our kitchen is fermented the
-              old way — slow, patient, and by hand.
-            </p>
-            <p>
-              Today, we run live dosa counters at weddings, corporate lunches,
-              community events and family celebrations right across Melbourne.
-              And when we're not on the road, we host small parties at our own
-              premises.
-            </p>
-            <p>
-              It's the food we grew up on. We just cook it a little louder now.
-            </p>
-          </div>
+        <div className="max-w-2xl space-y-4 text-muted-foreground">
+          <p>
+            Our chef trained in the tiffin houses of Bengaluru before moving to
+            Melbourne, and every batter that leaves our kitchen is fermented the
+            old way — slow, patient, and by hand.
+          </p>
+          <p>
+            Today, we run live dosa counters at weddings, corporate lunches,
+            community events and family celebrations right across Melbourne.
+            And when we're not on the road, we host small parties at our own
+            premises.
+          </p>
+          <p>
+            It's the food we grew up on. We just cook it a little louder now.
+          </p>
         </div>
       </Section>
 

@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Check, Clock, Plus, Star, Users } from "lucide-react";
 import { inStore, menu, faqs } from "@/lib/config";
-import { ImagePlaceholder } from "@/components/site/section";
 
 export const Route = createFileRoute("/in-store-parties")({
   head: () => ({
@@ -27,50 +26,35 @@ function InStorePage() {
     <>
       {/* HERO — split editorial */}
       <section className="relative overflow-hidden bg-[oklch(0.97_0.018_88)]">
-        <div className="mx-auto grid max-w-7xl gap-14 px-6 pt-20 pb-20 sm:px-8 sm:pt-28 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-20">
-          <div>
-            <div className="flex items-center gap-4">
-              <span className="gold-hairline w-14 bg-primary" aria-hidden />
-              <span className="eyebrow text-primary">In-Store Parties</span>
-            </div>
-            <h1 className="mt-6 font-display text-[clamp(2.5rem,5.5vw,5rem)] font-medium leading-[1.02] text-foreground">
-              Small gatherings.
-              <br />
-              <span className="italic gold-text">Endless dosas.</span>
-            </h1>
-            <p className="mt-6 max-w-lg text-muted-foreground">
-              Book out our little corner of Melbourne for your celebration. Ten
-              seats, unlimited dosas, filter coffee brewing. We handle the
-              cooking; you handle the toasts.
-            </p>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <Link
-                to="/booking"
-                search={{ service: "in-store" }}
-                className="group inline-flex items-center gap-3 rounded-full bg-primary px-7 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-foreground hover:bg-primary/90"
-              >
-                Reserve a session <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-45" />
-              </Link>
-              <a
-                href="#menu"
-                className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-foreground/70 hover:text-primary"
-              >
-                See what's on the menu →
-              </a>
-            </div>
+        <div className="mx-auto max-w-7xl px-6 pt-20 pb-20 sm:px-8 sm:pt-28">
+          <div className="flex items-center gap-4">
+            <span className="gold-hairline w-14 bg-primary" aria-hidden />
+            <span className="eyebrow text-primary">In-Store Parties</span>
           </div>
-          <div className="relative">
-            <ImagePlaceholder label="Family gathered around Dosa Ganesh table" aspect="aspect-[4/5]" />
-            {/* Floating price card */}
-            <div className="absolute -bottom-8 -left-6 rounded-2xl border border-accent/30 bg-card p-6 shadow-[var(--shadow-luxe)] sm:-left-10">
-              <span className="eyebrow text-[0.6rem] text-primary/70">Base package</span>
-              <p className="mt-2 font-display text-5xl text-primary">
-                ${inStore.basePrice}
-              </p>
-              <p className="mt-1 text-xs text-muted-foreground">
-                for {inStore.baseGuests} guests · unlimited dosas
-              </p>
-            </div>
+          <h1 className="mt-6 font-display text-[clamp(2.5rem,5.5vw,5rem)] font-medium leading-[1.02] text-foreground">
+            Small gatherings.
+            <br />
+            <span className="italic gold-text">Endless dosas.</span>
+          </h1>
+          <p className="mt-6 max-w-lg text-muted-foreground">
+            Book out our little corner of Melbourne for your celebration. Ten
+            seats, unlimited dosas, brewing fresh. We handle the
+            cooking; you handle the toasts.
+          </p>
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <Link
+              to="/booking"
+              search={{ service: "in-store" }}
+              className="group inline-flex items-center gap-3 rounded-full bg-primary px-7 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-foreground hover:bg-primary/90"
+            >
+              Reserve a session <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-45" />
+            </Link>
+            <a
+              href="#menu"
+              className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-foreground/70 hover:text-primary"
+            >
+              See what's on the menu →
+            </a>
           </div>
         </div>
       </section>
@@ -151,7 +135,7 @@ function InStorePage() {
 
       {/* MENU */}
       <section id="menu" className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32">
-        <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
+        <div>
           <div>
             <span className="eyebrow text-primary">On the tawa</span>
             <h2 className="mt-4 font-display text-4xl text-foreground sm:text-5xl">
@@ -175,32 +159,9 @@ function InStorePage() {
               Full menu <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
-          <div className="space-y-4">
-            <ImagePlaceholder label="Ghee roast off the pan" aspect="aspect-[4/3]" />
-            <div className="grid grid-cols-2 gap-4">
-              <ImagePlaceholder label="Chutneys ground fresh" aspect="aspect-square" />
-              <ImagePlaceholder label="Filter coffee — davara set" aspect="aspect-square" />
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* GALLERY */}
-      <section className="bg-[oklch(0.94_0.025_85)] py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-6 sm:px-8">
-          <span className="eyebrow text-primary">Recent parties</span>
-          <h2 className="mt-4 font-display text-4xl text-foreground sm:text-5xl">
-            Moments from <span className="italic gold-text">our tables.</span>
-          </h2>
-          <div className="mt-12 grid grid-cols-6 gap-3 sm:gap-4">
-            <div className="col-span-3 sm:col-span-2"><ImagePlaceholder label="Kids birthday" aspect="aspect-[4/5]" /></div>
-            <div className="col-span-3 sm:col-span-2"><ImagePlaceholder label="Baby shower" aspect="aspect-square" /></div>
-            <div className="col-span-6 sm:col-span-2"><ImagePlaceholder label="Team lunch" aspect="aspect-square" /></div>
-            <div className="col-span-6 sm:col-span-4"><ImagePlaceholder label="Family celebration" aspect="aspect-[16/10]" /></div>
-            <div className="col-span-6 sm:col-span-2"><ImagePlaceholder label="Coffee ritual" aspect="aspect-[16/10]" /></div>
-          </div>
-        </div>
-      </section>
 
       {/* FAQ */}
       <section className="mx-auto max-w-4xl px-6 py-24 sm:px-8 sm:py-32">
