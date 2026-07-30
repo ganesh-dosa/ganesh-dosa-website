@@ -407,7 +407,12 @@ function BookingPage() {
                       type="number"
                       min={0}
                       max={delivery.maxRadiusKm}
-                      value={distanceKm}
+                      // Fix: showing a literal "0" made typing append after it
+                      // (e.g. "05") since browsers don't reliably select() a
+                      // number input's text. An empty field with a "0"
+                      // placeholder means there's nothing to type over.
+                      value={distanceKm === 0 ? "" : distanceKm}
+                      placeholder="0"
                       onChange={(e) => setDistanceKm(Math.max(0, parseInt(e.target.value || "0", 10)))}
                       onFocus={(e) => e.target.select()}
                       className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:border-primary"
