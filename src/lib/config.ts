@@ -10,7 +10,7 @@ export const business = {
   whatsapp: "61416175868", // digits only, no +
   email: "sales@ganeshdosa.com.au",
   address: "5 Glen St, Werribee, VIC",
-  hours: "Tue – Sun, 11am – 9pm",
+  hours: "7 days\nMon – Fri: 3:00 PM – 11:00 PM\nSat – Sun: 9:00 AM – 12:00 PM",
   instagram: "https://www.instagram.com/ganesh_dosa_melbourne/",
   facebook: "https://www.facebook.com/profile.php?id=61592175580887",
   serviceAreas: [

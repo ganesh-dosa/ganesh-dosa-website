@@ -81,7 +81,7 @@ function ContactPage() {
             <div>
               <h3 className="font-display text-xl text-primary">Where we are</h3>
               <p className="mt-1 text-sm text-muted-foreground">{business.address}</p>
-              <p className="mt-2 text-sm">{business.hours}</p>
+              <p className="mt-2 text-sm whitespace-pre-line">{business.hours}</p>
             </div>
           </div>
         </div>
