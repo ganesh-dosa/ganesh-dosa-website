@@ -149,6 +149,7 @@ export default defineEventHandler(async (event) => {
       eventTime: String(eventTime || ""),
       guests: String(parsedGuests),
       service: serviceStr,
+      packageId: isCatering && packageId ? String(packageId) : "",
       eventType: String(eventType || ""),
       notes: String(notes || "").slice(0, 500),
       extras: JSON.stringify(selectedExtras || {}).slice(0, 500),

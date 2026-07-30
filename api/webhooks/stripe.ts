@@ -189,32 +189,38 @@ export default defineEventHandler(async (event) => {
   const eventTime = m.eventTime ?? "";
   const guests = m.guests ?? "";
   const service = m.service ?? "";
-  const eventType = m.eventType ?? "";
+  const packageId = m.packageId ?? "";
   const notes = m.notes ?? "";
+  const distanceKm = m.distanceKm ?? "";
   const total = m.total ?? "";
   const amountDueNow = m.amountDueNow ?? "";
+  const paymentType = m.payFull === "true" ? "Full payment" : "Deposit";
   const stripePaymentId = session.payment_intent ? String(session.payment_intent) : session.id;
   const businessPhone = process.env.OWNER_PHONE ?? "";
 
-  // ── Google Sheets row (16 columns) ────────────────────────────────────────
+  // ── Google Sheets row — must match the sheet's header order exactly:
+  // Timestamp, Name, Email, Phone, Suburb, Service, Package, Guests, Date,
+  // Time, Extras, Distance (km), Total ($), Amount Paid ($), Payment Type,
+  // Stripe ID, Notes
   const timestamp = new Date().toISOString();
   const sheetRow = [
     timestamp,
     customerName,
-    customerPhone,
     customerEmail,
+    customerPhone,
+    suburb,
+    service,
+    packageId,
+    guests,
     eventDate,
     eventTime,
-    suburb,
-    guests,
-    service,
-    eventType,
     m.extras ?? "",
+    distanceKm,
     total,
     amountDueNow,
+    paymentType,
     stripePaymentId,
     notes,
-    "Confirmed",
   ];
 
   // Fix #3 (errors swallowed): let Sheets failure propagate as 500 so Stripe
