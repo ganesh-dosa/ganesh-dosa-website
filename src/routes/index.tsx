@@ -49,7 +49,7 @@ function Home() {
             muted
             loop
             playsInline
-            className="h-full w-full object-cover object-[50%_30%] sm:object-center"
+            className="h-full w-full object-cover object-[50%_20%] sm:object-[50%_30%]"
             style={{ filter: "brightness(0.88) saturate(1.1)" }}
             aria-hidden
           />
@@ -77,7 +77,7 @@ function Home() {
               <br />
               <span className="italic text-cream/95">Freshly Made.</span>
               <br />
-              <span className="gold-text">Made for your celebration.</span>
+              <span className="gold-text text-[1.12em] font-normal drop-shadow-[0_2px_14px_oklch(0_0_0/0.7)]">Made for your celebration.</span>
             </h1>
 
             <div className="mt-8 flex flex-col items-center gap-8 sm:mt-10 sm:items-start md:flex-row md:items-center md:gap-12">
