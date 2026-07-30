@@ -9,7 +9,7 @@ export const business = {
   phone: "+61 416 175 868",
   whatsapp: "61416175868", // digits only, no +
   email: "sales@ganeshdosa.com.au",
-  address: "Werribee, VIC",
+  address: "5 Glen St, Werribee, VIC",
   hours: "Tue – Sun, 11am – 9pm",
   instagram: "https://www.instagram.com/ganesh_dosa_melbourne/",
   facebook: "https://www.facebook.com/profile.php?id=61592175580887",
