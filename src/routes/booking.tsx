@@ -409,6 +409,7 @@ function BookingPage() {
                       max={delivery.maxRadiusKm}
                       value={distanceKm}
                       onChange={(e) => setDistanceKm(Math.max(0, parseInt(e.target.value || "0", 10)))}
+                      onFocus={(e) => e.target.select()}
                       className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:border-primary"
                     />
                   </label>

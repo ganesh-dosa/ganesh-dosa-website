@@ -14,7 +14,6 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as LiveDosaCounterRouteImport } from './routes/live-dosa-counter'
 import { Route as InStorePartiesRouteImport } from './routes/in-store-parties'
-import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CateringRouteImport } from './routes/catering'
@@ -49,11 +48,6 @@ const LiveDosaCounterRoute = LiveDosaCounterRouteImport.update({
 const InStorePartiesRoute = InStorePartiesRouteImport.update({
   id: '/in-store-parties',
   path: '/in-store-parties',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GalleryRoute = GalleryRouteImport.update({
-  id: '/gallery',
-  path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -117,7 +111,6 @@ export interface FileRoutesByFullPath {
   '/catering': typeof CateringRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
-  '/gallery': typeof GalleryRoute
   '/in-store-parties': typeof InStorePartiesRoute
   '/live-dosa-counter': typeof LiveDosaCounterRoute
   '/menu': typeof MenuRoute
@@ -135,7 +128,6 @@ export interface FileRoutesByTo {
   '/catering': typeof CateringRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
-  '/gallery': typeof GalleryRoute
   '/in-store-parties': typeof InStorePartiesRoute
   '/live-dosa-counter': typeof LiveDosaCounterRoute
   '/menu': typeof MenuRoute
@@ -154,7 +146,6 @@ export interface FileRoutesById {
   '/catering': typeof CateringRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
-  '/gallery': typeof GalleryRoute
   '/in-store-parties': typeof InStorePartiesRoute
   '/live-dosa-counter': typeof LiveDosaCounterRoute
   '/menu': typeof MenuRoute
@@ -174,7 +165,6 @@ export interface FileRouteTypes {
     | '/catering'
     | '/contact'
     | '/faq'
-    | '/gallery'
     | '/in-store-parties'
     | '/live-dosa-counter'
     | '/menu'
@@ -192,7 +182,6 @@ export interface FileRouteTypes {
     | '/catering'
     | '/contact'
     | '/faq'
-    | '/gallery'
     | '/in-store-parties'
     | '/live-dosa-counter'
     | '/menu'
@@ -210,7 +199,6 @@ export interface FileRouteTypes {
     | '/catering'
     | '/contact'
     | '/faq'
-    | '/gallery'
     | '/in-store-parties'
     | '/live-dosa-counter'
     | '/menu'
@@ -229,7 +217,6 @@ export interface RootRouteChildren {
   CateringRoute: typeof CateringRoute
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
-  GalleryRoute: typeof GalleryRoute
   InStorePartiesRoute: typeof InStorePartiesRoute
   LiveDosaCounterRoute: typeof LiveDosaCounterRoute
   MenuRoute: typeof MenuRoute
@@ -273,13 +260,6 @@ declare module '@tanstack/react-router' {
       path: '/in-store-parties'
       fullPath: '/in-store-parties'
       preLoaderRoute: typeof InStorePartiesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/gallery': {
-      id: '/gallery'
-      path: '/gallery'
-      fullPath: '/gallery'
-      preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -365,7 +345,6 @@ const rootRouteChildren: RootRouteChildren = {
   CateringRoute: CateringRoute,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
-  GalleryRoute: GalleryRoute,
   InStorePartiesRoute: InStorePartiesRoute,
   LiveDosaCounterRoute: LiveDosaCounterRoute,
   MenuRoute: MenuRoute,
