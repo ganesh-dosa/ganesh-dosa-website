@@ -245,21 +245,31 @@ export default defineEventHandler(async (event) => {
   processedEventIds.add(stripeEvent.id);
 
   // ── SMS notifications — fire in parallel, non-fatal ───────────────────────
+  // One detail per line for readability. Plain "-" not an em-dash: an em-dash
+  // forces UCS2 encoding (70 chars/segment instead of 160), which previously
+  // pushed this over Twilio's trial-account length cap.
   const customerMsg = customerPhone
-    ? `Hi ${customerName}, your Ganesh Dosa booking is confirmed for ${eventDate} at ${suburb}. ` +
-      `Guests: ${guests}. Amount paid: $${amountDueNow} AUD. ` +
-      `Payment ref: ${stripePaymentId}. ` +
-      // Plain hyphen, not an em-dash: an em-dash forces UCS2 encoding
-      // (70 chars/segment instead of 160), which pushed this over Twilio's
-      // trial-account length cap and got flagged as undelivered.
-      `Questions? Call us on ${businessPhone}. - Ganesh Dosa`
+    ? `Ganesh Dosa - Booking Confirmed\n` +
+      `Name: ${customerName}\n` +
+      `Date: ${eventDate}\n` +
+      `Suburb: ${suburb}\n` +
+      `Guests: ${guests}\n` +
+      `Amount paid: $${amountDueNow} AUD\n` +
+      `Payment ref: ${stripePaymentId}\n` +
+      `Call us: ${businessPhone}`
     : null;
 
   const ownerPhone = process.env.OWNER_PHONE;
   const ownerMsg = ownerPhone
-    ? `New booking confirmed: ${customerName}, ${customerPhone}. ` +
-      `Date: ${eventDate}, ${suburb}. Guests: ${guests}. ` +
-      `Package: ${service}. Paid: $${amountDueNow} AUD (ref ${stripePaymentId}).`
+    ? `New Booking Confirmed\n` +
+      `Name: ${customerName}\n` +
+      `Phone: ${customerPhone}\n` +
+      `Date: ${eventDate}\n` +
+      `Suburb: ${suburb}\n` +
+      `Guests: ${guests}\n` +
+      `Service: ${service}\n` +
+      `Paid: $${amountDueNow} AUD\n` +
+      `Ref: ${stripePaymentId}`
     : null;
 
   // Fix #6 (efficiency): send both SMS in parallel rather than sequentially
