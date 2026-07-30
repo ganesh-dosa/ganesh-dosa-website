@@ -20,15 +20,14 @@ function CancellationPage() {
       <Section>
         <article className="prose-legal">
           <p>
-            The following draft policy explains how cancellations and rescheduling
-            work. Actual refund percentages are pending final confirmation with{" "}
-            {business.name}.
+            The following policy explains how cancellations and rescheduling
+            work with {business.name}.
           </p>
           <h3>Cancellations by you</h3>
           <ul>
-            <li>More than 14 days before the event — refund of deposit less any costs already incurred (TBC).</li>
-            <li>7–14 days before the event — partial refund of deposit (TBC).</li>
-            <li>Less than 7 days before the event — deposit is non-refundable.</li>
+            <li>Within 72 hours of booking, if you paid the 20% deposit — you'll receive a partial refund of your deposit.</li>
+            <li>Within 72 hours of booking, if you paid in full — you'll receive a 70% refund of the amount paid (not the full amount).</li>
+            <li>After 72 hours of booking — no refund, regardless of whether you paid the deposit or in full.</li>
           </ul>
           <h3>Rescheduling</h3>
           <p>
