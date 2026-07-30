@@ -214,7 +214,13 @@ export default defineEventHandler(async (event) => {
     guests,
     eventDate,
     eventTime,
-    m.extras ?? "",
+    (() => {
+      try {
+        return JSON.parse(m.extras ?? "{}").cutlery ? "Cutlery" : "No";
+      } catch {
+        return "No";
+      }
+    })(),
     distanceKm,
     total,
     amountDueNow,
