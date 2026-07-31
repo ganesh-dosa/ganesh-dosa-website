@@ -62,7 +62,7 @@ function Home() {
 
         {/* Top row: mobile logo center / desktop logo right */}
         <div className="relative z-10 mx-auto flex max-w-7xl items-center justify-center px-6 pt-10 sm:justify-end sm:px-10 sm:pt-12">
-          <div className="h-14 w-14 overflow-hidden rounded-full border border-accent/40 bg-cream/95 p-0.5 shadow-[0_10px_40px_-10px_oklch(0.82_0.14_88/0.5)] sm:h-16 sm:w-16">
+          <div className="h-20 w-20 overflow-hidden rounded-full border border-accent/40 bg-cream/95 p-0.5 shadow-[0_10px_40px_-10px_oklch(0.82_0.14_88/0.5)] sm:h-20 sm:w-20">
             <img src={logoUrl} alt="Dosa Ganesh logo" className="h-full w-full rounded-full object-cover" />
           </div>
         </div>
