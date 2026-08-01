@@ -33,9 +33,11 @@ function BookingPolicyPage() {
           </p>
           <h3>Quotes and deposits</h3>
           <p>
-            After you submit an enquiry we'll send a written quote. A deposit is
-            required to secure your date; the balance is due before the event.
-            Deposit amount and payment methods are shared with your quote.
+            As you enter your event details on our booking page, you'll see a live
+            quotation update in real time — no need to wait for a written quote.
+            A minimum 20% deposit is required to secure your date, or you may pay
+            the full amount upfront; the balance (if any) is due before the event.
+            Payment is processed securely online via Stripe.
           </p>
           <h3>Changes</h3>
           <p>
