@@ -21,7 +21,6 @@ function TermsPage() {
         <article className="prose-legal">
           <p>
             These terms govern your use of the {business.name} website and services.
-            Draft copy — please review with your legal advisor before publishing.
           </p>
           <h3>Use of the site</h3>
           <p>

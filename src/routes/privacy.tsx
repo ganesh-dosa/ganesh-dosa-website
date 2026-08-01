@@ -20,8 +20,7 @@ function PrivacyPage() {
         <article className="prose-legal">
           <p>
             This policy is maintained by {business.name} to explain what personal
-            information we collect and how we use it. Please review with your
-            legal advisor before publishing final wording.
+            information we collect and how we use it.
           </p>
           <h3>Information we collect</h3>
           <p>
