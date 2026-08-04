@@ -98,7 +98,7 @@ export const suburbDistanceKm: Record<string, number> = {
 
 export const liveCounter = {
   pricePerPerson: 20, // AUD
-  minGuests: 30,
+  minGuests: 25,
   maxGuests: 150,
   leadTimeDays: 5, // absolute minimum
   recommendedLeadTimeDays: 10, // strongly recommended
@@ -196,7 +196,7 @@ export const cateringPackages = [
     name: "Package 1",
     tagline: "A warm, homely South Indian spread.",
     priceFrom: 22, // per person
-    minGuests: 20,
+    minGuests: 25,
     items: [
       "Vegetable biryani (veg pulao)",
       "Mango dal",
@@ -230,7 +230,7 @@ export const cateringPackages = [
     name: "Package 3 — South Indian Feast",
     tagline: "An authentic South Indian banquet for special occasions.",
     priceFrom: 30, // per person
-    minGuests: 30,
+    minGuests: 25,
     items: [
       "Mor kuzhambu",
       "Bisi bele bath",

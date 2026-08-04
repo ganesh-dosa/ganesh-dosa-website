@@ -3,16 +3,16 @@ import Stripe from "stripe";
 import { suburbDistanceKm } from "../src/lib/config.js";
 
 const PRICE_PER_PERSON = 20;
-const MIN_GUESTS = 30;
+const MIN_GUESTS = 25;
 const MAX_GUESTS = 150;
 const CATERING_MAX_GUESTS = 300;
 
 const KNOWN_SERVICES = new Set(["live-counter", "catering", "in-store"]);
 
 const CATERING_PACKAGES: Record<string, { priceFrom: number; minGuests: number }> = {
-  "package-1": { priceFrom: 22, minGuests: 20 },
+  "package-1": { priceFrom: 22, minGuests: 25 },
   "package-2": { priceFrom: 25, minGuests: 25 },
-  "package-3": { priceFrom: 30, minGuests: 30 },
+  "package-3": { priceFrom: 30, minGuests: 25 },
 };
 const DELIVERY_TIER1_KM = 50;
 const DELIVERY_TIER1_FEE = 60;
