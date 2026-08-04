@@ -1,6 +1,5 @@
 import { defineEventHandler, readBody, createError, getRequestURL } from "h3";
 import Stripe from "stripe";
-import { business } from "../src/lib/config.js";
 
 const PRICE_PER_PERSON = 20;
 const MIN_GUESTS = 30;
@@ -78,19 +77,6 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: "guests must be a positive integer" });
   }
   const parsedGuests = Math.max(minGuests, Math.min(maxGuests, rawGuests));
-
-  // Fix #2 (distanceKm from client): validate suburb is in a known service area.
-  // This prevents completely fabricated suburb/distance combos from creating
-  // checkout sessions. distanceKm still comes from the client but an unknown
-  // suburb is rejected outright.
-  const suburbNorm = String(suburb || "").trim().toLowerCase();
-  const knownSuburbs = (business.serviceAreas as readonly string[]).map((s) => s.toLowerCase());
-  if (suburbNorm && !knownSuburbs.includes(suburbNorm)) {
-    throw createError({
-      statusCode: 400,
-      message: `We don't currently service ${suburb}. Please check our service areas.`,
-    });
-  }
 
   const parsedDistance = Math.max(0, parseInt(String(distanceKm || 0), 10));
 
