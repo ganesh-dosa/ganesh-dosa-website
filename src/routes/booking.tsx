@@ -12,7 +12,8 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
-import { liveCounter, faqs, delivery, liveCounterDelivery, payments, cateringPackages } from "@/lib/config";
+import { liveCounter, faqs, delivery, liveCounterDelivery, payments, cateringPackages, suburbDistanceKm } from "@/lib/config";
+import { SuburbPicker } from "@/components/site/suburb-picker";
 
 const searchSchema = z.object({
   service: z.enum(["live-counter", "in-store", "catering"]).optional(),
@@ -85,7 +86,6 @@ function BookingPage() {
   const [eventType, setEventType] = useState("");
   const [notes, setNotes] = useState("");
   const [selectedExtras, setSelectedExtras] = useState<Record<string, boolean>>({});
-  const [distanceKm, setDistanceKm] = useState<number>(0);
   const [payFull, setPayFull] = useState<boolean>(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -97,6 +97,9 @@ function BookingPage() {
   const effectiveMaxGuests = service === "catering" ? CATERING_MAX_GUESTS : liveCounter.maxGuests;
 
   const clampedGuests = Math.max(effectiveMinGuests, Math.min(effectiveMaxGuests, guests || 0));
+  // Distance is derived from the selected suburb, not typed by the customer -
+  // keeps pricing tied to a validated suburb instead of a self-reported number.
+  const distanceKm = suburbDistanceKm[suburb] ?? 0;
   const basePrice = clampedGuests * pricePerPerson;
   const extrasTotal = extras.reduce((sum, e) => {
     if (!selectedExtras[e.id] || e.price === 0) return sum;
@@ -122,8 +125,8 @@ function BookingPage() {
       e.eventDate = `Booking must be at least ${liveCounter.leadTimeDays} days from today (${liveCounter.recommendedLeadTimeDays}+ recommended).`;
     if (guests < effectiveMinGuests || guests > effectiveMaxGuests)
       e.guests = `Between ${effectiveMinGuests} and ${effectiveMaxGuests}.`;
-    if (distanceKm > delivery.maxRadiusKm)
-      e.distance = `We deliver within ${delivery.maxRadiusKm}km of Melbourne CBD.`;
+    if (!suburb || !(suburb in suburbDistanceKm))
+      e.suburb = "Please select your suburb from the list.";
     setErrors(e);
     if (Object.keys(e).length > 0) {
       const firstKey = Object.keys(e)[0];
@@ -139,10 +142,9 @@ function BookingPage() {
     if (!name.trim()) e.name = "Please enter your name.";
     if (!/^\S+@\S+\.\S+$/.test(email)) e.email = "Please enter a valid email.";
     if (phone.replace(/\D/g, "").length < 7) e.phone = "Please enter a valid phone.";
-    if (!suburb.trim()) e.suburb = "Please enter your suburb.";
     setErrors(e);
     if (Object.keys(e).length > 0) {
-      const firstKey = (["name", "email", "phone", "suburb"] as const).find((k) => e[k]);
+      const firstKey = (["name", "email", "phone"] as const).find((k) => e[k]);
       if (firstKey) {
         setTimeout(() => {
           document.getElementById(`field-${firstKey}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -395,44 +397,39 @@ function BookingPage() {
                   {errors.eventDate && <FieldError>{errors.eventDate}</FieldError>}
                 </Card>
 
-                {/* Distance / delivery */}
+                {/* Suburb / delivery distance */}
                 <Card id="field-distance">
-                  <CardTitle eyebrow="Step 04" title="Venue distance" />
+                  <CardTitle eyebrow="Step 04" title="Delivery suburb" />
                   <p className="mt-2 text-sm text-muted-foreground">
                     {service === "live-counter" ? liveCounterDelivery.note : delivery.note}
                   </p>
-                  <label className="mt-6 block">
-                    <span className="eyebrow text-[0.65rem] text-muted-foreground">Distance from venue (km, approx)</span>
-                    <input
-                      type="number"
-                      min={0}
-                      max={delivery.maxRadiusKm}
-                      // Fix: showing a literal "0" made typing append after it
-                      // (e.g. "05") since browsers don't reliably select() a
-                      // number input's text. An empty field with a "0"
-                      // placeholder means there's nothing to type over.
-                      value={distanceKm === 0 ? "" : distanceKm}
-                      placeholder="0"
-                      onChange={(e) => setDistanceKm(Math.max(0, parseInt(e.target.value || "0", 10)))}
-                      onFocus={(e) => e.target.select()}
-                      className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:border-primary"
+                  <div className="mt-6">
+                    <span className="eyebrow text-[0.65rem] text-muted-foreground">Suburb</span>
+                    <SuburbPicker
+                      value={suburb}
+                      onChange={(v) => {
+                        setSuburb(v);
+                        clearError("suburb");
+                      }}
                     />
-                  </label>
-                  <div className="mt-4 flex items-center justify-between rounded-2xl border border-border bg-muted/40 p-4">
-                    <span className="text-sm">
-                      {service === "live-counter"
-                        ? (distanceKm <= liveCounterDelivery.freeRadiusKm
-                            ? `Within ${liveCounterDelivery.freeRadiusKm}km — Free delivery`
-                            : `Beyond ${liveCounterDelivery.freeRadiusKm}km — $${liveCounterDelivery.chargeAbove} delivery`)
-                        : (distanceKm <= delivery.tier1RadiusKm
-                            ? `Within ${delivery.tier1RadiusKm}km — $${delivery.tier1Charge} delivery`
-                            : `Beyond ${delivery.tier1RadiusKm}km — $${delivery.tier2Charge} delivery`)}
-                    </span>
-                    <span className="font-display text-lg text-primary">
-                      {deliveryFee === 0 ? "Free" : `+$${deliveryFee}`}
-                    </span>
                   </div>
-                  {errors.distance && <FieldError>{errors.distance}</FieldError>}
+                  {suburb && (
+                    <div className="mt-4 flex items-center justify-between rounded-2xl border border-border bg-muted/40 p-4">
+                      <span className="text-sm">
+                        {service === "live-counter"
+                          ? (distanceKm <= liveCounterDelivery.freeRadiusKm
+                              ? `Within ${liveCounterDelivery.freeRadiusKm}km — Free delivery`
+                              : `Beyond ${liveCounterDelivery.freeRadiusKm}km — $${liveCounterDelivery.chargeAbove} delivery`)
+                          : (distanceKm <= delivery.tier1RadiusKm
+                              ? `Within ${delivery.tier1RadiusKm}km — $${delivery.tier1Charge} delivery`
+                              : `Beyond ${delivery.tier1RadiusKm}km — $${delivery.tier2Charge} delivery`)}
+                      </span>
+                      <span className="font-display text-lg text-primary">
+                        {deliveryFee === 0 ? "Free" : `+$${deliveryFee}`}
+                      </span>
+                    </div>
+                  )}
+                  {errors.suburb && <FieldError>{errors.suburb}</FieldError>}
                 </Card>
 
                 {/* Extras */}
@@ -500,7 +497,6 @@ function BookingPage() {
                     <FieldInput id="field-name" label="Full name" value={name} onChange={(v) => { setName(v); clearError("name"); }} error={errors.name} />
                     <FieldInput id="field-email" label="Email" type="email" value={email} onChange={(v) => { setEmail(v); clearError("email"); }} error={errors.email} />
                     <FieldInput id="field-phone" label="Phone" type="tel" value={phone} onChange={(v) => { setPhone(v); clearError("phone"); }} error={errors.phone} />
-                    <FieldInput id="field-suburb" label="Suburb & postcode" value={suburb} onChange={(v) => { setSuburb(v); clearError("suburb"); }} error={errors.suburb} />
                     <label className="block sm:col-span-2">
                       <span className="eyebrow text-[0.65rem] text-muted-foreground">Event type</span>
                       <select
@@ -654,6 +650,7 @@ function BookingPage() {
 
               <dl className="space-y-3 text-sm text-cream/85">
                 <Row label="Service" value={service.replace("-", " ")} />
+                <Row label="Suburb" value={suburb || "—"} />
                 <Row label="Guests" value={String(clampedGuests)} />
                 <Row label="Date" value={eventDate || "—"} />
                 <Row label="Time" value={eventTime || "—"} />

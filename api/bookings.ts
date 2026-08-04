@@ -1,5 +1,6 @@
 import { defineEventHandler, readBody, createError, getRequestURL } from "h3";
 import Stripe from "stripe";
+import { suburbDistanceKm } from "../src/lib/config.js";
 
 const PRICE_PER_PERSON = 20;
 const MIN_GUESTS = 30;
@@ -31,13 +32,13 @@ export default defineEventHandler(async (event) => {
   const {
     name, email, phone, suburb,
     eventDate, eventTime, service, packageId, eventType, notes,
-    selectedExtras, distanceKm, payFull, guests,
+    selectedExtras, payFull, guests,
   } = body as {
     name: string; email: string; phone: string; suburb: string;
     eventDate: string; eventTime: string; service: string;
     packageId?: string; eventType: string; notes: string;
     selectedExtras: Record<string, boolean>;
-    distanceKm: number; payFull: boolean; guests: number;
+    payFull: boolean; guests: number;
   };
 
   // Fix #1: use == null so guests: 0 still triggers "Missing required fields"
@@ -78,7 +79,20 @@ export default defineEventHandler(async (event) => {
   }
   const parsedGuests = Math.max(minGuests, Math.min(maxGuests, rawGuests));
 
-  const parsedDistance = Math.max(0, parseInt(String(distanceKm || 0), 10));
+  // Distance is looked up server-side from the suburb name, never trusted
+  // from the client - closes off the old self-reported-distance gap and
+  // guarantees pricing always matches the actual selected suburb.
+  const suburbStr = String(suburb || "").trim();
+  const matchedSuburb = Object.keys(suburbDistanceKm).find(
+    (s) => s.toLowerCase() === suburbStr.toLowerCase(),
+  );
+  if (!matchedSuburb) {
+    throw createError({
+      statusCode: 400,
+      message: `We don't currently service ${suburb || "that suburb"}. Please pick one from the list.`,
+    });
+  }
+  const parsedDistance = suburbDistanceKm[matchedSuburb];
 
   if (parsedDistance > MAX_RADIUS_KM) {
     throw createError({ statusCode: 400, message: `We deliver within ${MAX_RADIUS_KM}km of Melbourne CBD` });
@@ -119,7 +133,7 @@ export default defineEventHandler(async (event) => {
           currency: "aud",
           product_data: {
             name: `Ganesh Dosa – ${serviceLabel} (${parsedGuests} guests)`,
-            description: `${eventDate} · ${suburb} · ${payLabel}`,
+            description: `${eventDate} · ${matchedSuburb} · ${payLabel}`,
           },
           unit_amount: amountDueNow * 100,
         },
@@ -130,7 +144,7 @@ export default defineEventHandler(async (event) => {
       customerName: String(name).slice(0, 500),
       customerPhone: String(phone).slice(0, 50),
       customerEmail: String(email).slice(0, 200),
-      suburb: String(suburb).slice(0, 200),
+      suburb: matchedSuburb,
       eventDate: String(eventDate),
       eventTime: String(eventTime || ""),
       guests: String(parsedGuests),
