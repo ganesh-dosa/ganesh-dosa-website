@@ -105,6 +105,19 @@ export function SiteFooter() {
           </p>
           <p className="text-xs text-cream/40">{business.tagline}</p>
         </div>
+        <div className="mx-auto max-w-7xl px-6 pb-6 sm:px-8">
+          <p className="text-center text-[0.65rem] text-cream/30">
+            Website by{" "}
+            <a
+              href="https://zenithitservices.com.au"
+              target="_blank"
+              rel="noreferrer"
+              className="underline hover:text-accent"
+            >
+              Zenith IT Services
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
