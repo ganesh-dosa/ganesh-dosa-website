@@ -14,7 +14,7 @@ export function WhatsAppFab() {
       className="fixed bottom-24 right-4 z-40 inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-3 text-sm font-medium text-secondary-foreground shadow-[0_12px_30px_-10px_oklch(0.5_0.11_145/0.55)] transition-transform hover:-translate-y-0.5 lg:bottom-5 lg:right-5"
     >
       <MessageCircle className="h-5 w-5" />
-      <span className="hidden sm:inline">Contact if you have any doubts</span>
+      <span className="hidden sm:inline">Contact us</span>
     </a>
   );
 }
