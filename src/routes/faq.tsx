@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute } from "@tanstack/react-router";
 import { faqs } from "@/lib/config";
 import { PageHeader, Section } from "@/components/site/section";
 import {
@@ -11,8 +11,8 @@ import {
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      { title: "FAQ — Dosa Ganesh" },
-      { name: "description", content: "Frequently asked questions about booking Dosa Ganesh for your Melbourne event." },
+      { title: "FAQ â€” Ganesh Dosa" },
+      { name: "description", content: "Frequently asked questions about booking Ganesh Dosa for your Melbourne event." },
     ],
   }),
   component: FAQPage,

@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
 import { CheckCircle2 } from "lucide-react";
 import { PageHeader, Section } from "@/components/site/section";
 import { z } from "zod";
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/booking_/success")({
   validateSearch: (s) => searchSchema.parse(s),
   head: () => ({
     meta: [
-      { title: "Booking Confirmed — Dosa Ganesh" },
+      { title: "Booking Confirmed â€” Ganesh Dosa" },
       { name: "robots", content: "noindex" },
       { name: "description", content: "Your Ganesh Dosa booking is confirmed." },
     ],

@@ -1,12 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute } from "@tanstack/react-router";
 import { business } from "@/lib/config";
 import { PageHeader, Section } from "@/components/site/section";
 
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy — Dosa Ganesh" },
-      { name: "description", content: "How Dosa Ganesh collects, uses and protects your personal information." },
+      { title: "Privacy Policy â€” Ganesh Dosa" },
+      { name: "description", content: "How Ganesh Dosa collects, uses and protects your personal information." },
     ],
   }),
   component: PrivacyPage,

@@ -1,11 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute } from "@tanstack/react-router";
 import { Lock } from "lucide-react";
 import { PageHeader, Section } from "@/components/site/section";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Admin — Dosa Ganesh" },
+      { title: "Admin â€” Ganesh Dosa" },
       { name: "robots", content: "noindex" },
       { name: "description", content: "Internal admin area." },
     ],

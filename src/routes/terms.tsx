@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute } from "@tanstack/react-router";
 import { business } from "@/lib/config";
 import { PageHeader, Section } from "@/components/site/section";
 import { LegalStyles } from "./privacy";
@@ -6,8 +6,8 @@ import { LegalStyles } from "./privacy";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms of Service — Dosa Ganesh" },
-      { name: "description", content: "Terms of service for using the Dosa Ganesh website and services." },
+      { title: "Terms of Service â€” Ganesh Dosa" },
+      { name: "description", content: "Terms of service for using the Ganesh Dosa website and services." },
     ],
   }),
   component: TermsPage,

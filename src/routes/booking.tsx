@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { z } from "zod";
 import {
@@ -26,11 +26,11 @@ export const Route = createFileRoute("/booking")({
   validateSearch: (s) => searchSchema.parse(s),
   head: () => ({
     meta: [
-      { title: "Book a Live Dosa Counter — Dosa Ganesh Melbourne" },
+      { title: "Book a Live Dosa Counter â€” Ganesh Dosa Melbourne" },
       {
         name: "description",
         content:
-          "Design your event. Live dosa counter from $20 per person, 30–150 guests, unlimited dosas.",
+          "Design your event. Live dosa counter from $20 per person, 30â€“150 guests, unlimited dosas.",
       },
     ],
   }),
@@ -62,7 +62,7 @@ function BookingPage() {
 
   // Fix: advancing/going back a step unmounts the button that was just
   // clicked. Some browsers reset scroll to the very top of the page when the
-  // focused element disappears — scroll to the form section ourselves so the
+  // focused element disappears â€” scroll to the form section ourselves so the
   // new step's content lands under the header instead of the page hero.
   useEffect(() => {
     if (isFirstRender.current) {
@@ -187,7 +187,7 @@ function BookingPage() {
 
       if (!res.ok) {
         // Fix: the API returns { message } (h3's createError shape), not
-        // { error } — this was always showing the generic fallback text
+        // { error } â€” this was always showing the generic fallback text
         // instead of the real validation reason.
         const data = await res.json().catch(() => ({ message: "Unknown error" })) as { message?: string };
         throw new Error(data.message ?? "Checkout session creation failed");
@@ -211,14 +211,14 @@ function BookingPage() {
         <div className="relative mx-auto max-w-7xl px-6 pt-16 pb-14 sm:px-8 sm:pt-24 sm:pb-20">
           <div className="flex items-center gap-4">
             <span className="gold-hairline w-14" aria-hidden />
-            <span className="eyebrow text-accent">Booking · Live Dosa Counter</span>
+            <span className="eyebrow text-accent">Booking Â· Live Dosa Counter</span>
           </div>
           <h1 className="mt-6 max-w-3xl font-display text-[clamp(2.25rem,5vw,4.5rem)] font-medium leading-[1.02] text-cream">
             Design your <span className="italic gold-text">celebration</span>.
           </h1>
           <p className="mt-5 max-w-xl text-cream/70">
-            ${liveCounter.pricePerPerson} per person · {liveCounter.minGuests}–{liveCounter.maxGuests} guests ·
-            unlimited dosas · {liveCounter.varieties} varieties. Book {liveCounter.recommendedLeadTimeDays}+ days ahead ({liveCounter.leadTimeDays}-day minimum).
+            ${liveCounter.pricePerPerson} per person Â· {liveCounter.minGuests}â€“{liveCounter.maxGuests} guests Â·
+            unlimited dosas Â· {liveCounter.varieties} varieties. Book {liveCounter.recommendedLeadTimeDays}+ days ahead ({liveCounter.leadTimeDays}-day minimum).
           </p>
 
           {/* Progress */}
@@ -392,7 +392,7 @@ function BookingPage() {
                     </label>
                   </div>
                   <p className="mt-3 text-xs text-muted-foreground">
-                    Earliest available: {minDate} · minimum {liveCounter.leadTimeDays} days · we recommend {liveCounter.recommendedLeadTimeDays}+ days for weekends & weddings.
+                    Earliest available: {minDate} Â· minimum {liveCounter.leadTimeDays} days Â· we recommend {liveCounter.recommendedLeadTimeDays}+ days for weekends & weddings.
                   </p>
                   {errors.eventDate && <FieldError>{errors.eventDate}</FieldError>}
                 </Card>
@@ -418,11 +418,11 @@ function BookingPage() {
                       <span className="text-sm">
                         {service === "live-counter"
                           ? (distanceKm <= liveCounterDelivery.freeRadiusKm
-                              ? `Within ${liveCounterDelivery.freeRadiusKm}km — Free delivery`
-                              : `Beyond ${liveCounterDelivery.freeRadiusKm}km — $${liveCounterDelivery.chargeAbove} delivery`)
+                              ? `Within ${liveCounterDelivery.freeRadiusKm}km â€” Free delivery`
+                              : `Beyond ${liveCounterDelivery.freeRadiusKm}km â€” $${liveCounterDelivery.chargeAbove} delivery`)
                           : (distanceKm <= delivery.tier1RadiusKm
-                              ? `Within ${delivery.tier1RadiusKm}km — $${delivery.tier1Charge} delivery`
-                              : `Beyond ${delivery.tier1RadiusKm}km — $${delivery.tier2Charge} delivery`)}
+                              ? `Within ${delivery.tier1RadiusKm}km â€” $${delivery.tier1Charge} delivery`
+                              : `Beyond ${delivery.tier1RadiusKm}km â€” $${delivery.tier2Charge} delivery`)}
                       </span>
                       <span className="font-display text-lg text-primary">
                         {deliveryFee === 0 ? "Free" : `+$${deliveryFee}`}
@@ -436,7 +436,7 @@ function BookingPage() {
                 <Card>
                   <CardTitle eyebrow="Step 05" title="Extras" />
                   <p className="mt-2 text-sm text-muted-foreground">
-                    Optional. Add or remove — your estimate updates live.
+                    Optional. Add or remove â€” your estimate updates live.
                   </p>
                   <ul className="mt-6 space-y-3">
                     {extras.map((e) => {
@@ -504,7 +504,7 @@ function BookingPage() {
                         onChange={(e) => setEventType(e.target.value)}
                         className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:border-primary"
                       >
-                        <option value="">Select…</option>
+                        <option value="">Selectâ€¦</option>
                         <option>Birthday party</option>
                         <option>Family celebration</option>
                         <option>Housewarming</option>
@@ -521,7 +521,7 @@ function BookingPage() {
                         rows={4}
                         value={notes}
                         onChange={(e) => setNotes(e.target.value.slice(0, 1000))}
-                        placeholder="Venue notes, dietary requirements, timings…"
+                        placeholder="Venue notes, dietary requirements, timingsâ€¦"
                         className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:border-primary"
                       />
                     </label>
@@ -534,7 +534,7 @@ function BookingPage() {
                     onClick={() => setStep(0)}
                     className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-muted-foreground hover:text-primary"
                   >
-                    ← Back
+                    â† Back
                   </button>
                   <button
                     type="button"
@@ -606,14 +606,14 @@ function BookingPage() {
                     onClick={() => setStep(1)}
                     className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-muted-foreground hover:text-primary"
                   >
-                    ← Back
+                    â† Back
                   </button>
                   <button
                     type="submit"
                     disabled={isSubmitting}
                     className="inline-flex items-center gap-3 rounded-full bg-primary px-8 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-foreground shadow-[0_20px_60px_-20px_oklch(0.32_0.11_22/0.6)] hover:bg-primary/90 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    {isSubmitting ? "Processing…" : "Confirm & Pay"} <ArrowUpRight className="h-4 w-4" />
+                    {isSubmitting ? "Processingâ€¦" : "Confirm & Pay"} <ArrowUpRight className="h-4 w-4" />
                   </button>
                 </div>
                 {submitError && (
@@ -642,7 +642,7 @@ function BookingPage() {
                 <span className="gold-text">${total.toLocaleString()}</span>
               </p>
               <p className="mt-2 text-xs text-cream/60">
-                {clampedGuests} guests · ${pricePerPerson}/pp
+                {clampedGuests} guests Â· ${pricePerPerson}/pp
                 {extrasTotal > 0 && ` + $${extrasTotal.toLocaleString()} extras`}
               </p>
 
@@ -650,10 +650,10 @@ function BookingPage() {
 
               <dl className="space-y-3 text-sm text-cream/85">
                 <Row label="Service" value={service.replace("-", " ")} />
-                <Row label="Suburb" value={suburb || "—"} />
+                <Row label="Suburb" value={suburb || "â€”"} />
                 <Row label="Guests" value={String(clampedGuests)} />
-                <Row label="Date" value={eventDate || "—"} />
-                <Row label="Time" value={eventTime || "—"} />
+                <Row label="Date" value={eventDate || "â€”"} />
+                <Row label="Time" value={eventTime || "â€”"} />
                 <Row label="Base" value={`$${basePrice.toLocaleString()}`} />
                 {extras.filter((e) => selectedExtras[e.id]).map((e) => (
                   <Row
@@ -807,14 +807,14 @@ function MobileEstimateCard({
         <span className="gold-text">${total.toLocaleString()}</span>
       </p>
       <p className="mt-1 text-xs text-cream/60">
-        {clampedGuests} guests · ${pricePerPerson}/pp
-        {extrasTotal > 0 && ` · +$${extrasTotal} extras`}
-        {deliveryFee > 0 && ` · +$${deliveryFee} delivery`}
+        {clampedGuests} guests Â· ${pricePerPerson}/pp
+        {extrasTotal > 0 && ` Â· +$${extrasTotal} extras`}
+        {deliveryFee > 0 && ` Â· +$${deliveryFee} delivery`}
       </p>
       <div className="gold-hairline my-5" aria-hidden />
       <dl className="space-y-2 text-sm text-cream/85">
         <Row label="Base" value={`$${basePrice.toLocaleString()}`} />
-        <Row label="Extras" value={extrasTotal ? `$${extrasTotal.toLocaleString()}` : "—"} subtle />
+        <Row label="Extras" value={extrasTotal ? `$${extrasTotal.toLocaleString()}` : "â€”"} subtle />
         <Row label="Delivery" value={deliveryFee ? `$${deliveryFee}` : "Free"} subtle />
       </dl>
       <div className="mt-5 rounded-2xl border border-accent/25 bg-cream/5 p-4">

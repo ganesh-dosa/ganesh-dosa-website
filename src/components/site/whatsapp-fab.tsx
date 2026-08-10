@@ -1,9 +1,9 @@
-import { MessageCircle } from "lucide-react";
+﻿import { MessageCircle } from "lucide-react";
 import { business } from "@/lib/config";
 
 export function WhatsAppFab() {
   const href = `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(
-    "Hi Dosa Ganesh, I'd like to enquire about an event.",
+    "Hi Ganesh Dosa, I'd like to enquire about an event.",
   )}`;
   return (
     <a

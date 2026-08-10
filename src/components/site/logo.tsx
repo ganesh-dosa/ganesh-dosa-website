@@ -1,9 +1,9 @@
-import logoAsset from "@/assets/dosa-ganesh-logo.asset.json";
+﻿import logoAsset from "@/assets/dosa-ganesh-logo.asset.json";
 
 export function Logo({
   className = "",
   size = 40,
-  alt = "Dosa Ganesh — Live Dosa, Melbourne",
+  alt = "Ganesh Dosa â€” Live Dosa, Melbourne",
 }: {
   className?: string;
   size?: number;

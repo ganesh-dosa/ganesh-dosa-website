@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -18,13 +18,13 @@ import { Logo, logoUrl } from "@/components/site/logo";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Dosa Ganesh — Live Dosa Catering & Counters in Melbourne" },
+      { title: "Ganesh Dosa â€” Live Dosa Catering & Counters in Melbourne" },
       {
         name: "description",
         content:
-          "Melbourne's premium live dosa counter. Unlimited dosas, ten varieties, cooked in front of your guests — for weddings, parties and corporate events.",
+          "Melbourne's premium live dosa counter. Unlimited dosas, ten varieties, cooked in front of your guests â€” for weddings, parties and corporate events.",
       },
-      { property: "og:title", content: "Dosa Ganesh — Live Dosa, Melbourne" },
+      { property: "og:title", content: "Ganesh Dosa â€” Live Dosa, Melbourne" },
       {
         property: "og:description",
         content:
@@ -40,7 +40,7 @@ export const Route = createFileRoute("/")({
 function Home() {
   return (
     <>
-      {/* ============ HERO — cinematic noir ============ */}
+      {/* ============ HERO â€” cinematic noir ============ */}
       <section className="relative overflow-hidden bg-ink">
         <div className="absolute inset-0">
           <video
@@ -63,7 +63,7 @@ function Home() {
         {/* Top row: mobile logo center / desktop logo right */}
         <div className="relative z-10 mx-auto flex max-w-7xl items-center justify-center px-6 pt-10 sm:justify-end sm:px-10 sm:pt-12">
           <div className="h-28 w-28 overflow-hidden rounded-full border border-accent/40 bg-cream/95 p-0.5 shadow-[0_10px_40px_-10px_oklch(0.82_0.14_88/0.5)] sm:h-28 sm:w-28">
-            <img src={logoUrl} alt="Dosa Ganesh logo" className="h-full w-full rounded-full object-cover" />
+            <img src={logoUrl} alt="Ganesh Dosa logo" className="h-full w-full rounded-full object-cover" />
           </div>
         </div>
 
@@ -82,7 +82,7 @@ function Home() {
 
             <div className="mt-8 flex flex-col items-center gap-8 sm:mt-10 sm:items-start md:flex-row md:items-center md:gap-12">
               <p className="max-w-sm text-center text-[0.95rem] font-light leading-relaxed text-cream/75 sm:text-left sm:text-base sm:text-cream/70">
-                Authentic live dosa catering across Melbourne — weddings,
+                Authentic live dosa catering across Melbourne â€” weddings,
                 birthdays, corporate events and family celebrations.
               </p>
 
@@ -107,7 +107,7 @@ function Home() {
             <dl className="mt-12 grid max-w-2xl grid-cols-3 gap-4 border-t border-cream/15 pt-6 sm:mt-14 sm:divide-x sm:divide-cream/10 sm:gap-0 sm:pt-8">
               {[
                 ["$20", "per person"],
-                ["30–150", "guests"],
+                ["30â€“150", "guests"],
                 ["10", "varieties"],
               ].map(([n, l]) => (
                 <div key={l} className="text-center sm:px-6 sm:text-left sm:first:pl-0">
@@ -164,7 +164,7 @@ function Home() {
                 icon: Flame,
                 num: "01",
                 title: "Live Dosa Counter",
-                desc: "A chef arrives with a cast-iron tawa. Dosas are poured, folded and served hot to your guests — unlimited, all evening.",
+                desc: "A chef arrives with a cast-iron tawa. Dosas are poured, folded and served hot to your guests â€” unlimited, all evening.",
                 to: "/live-dosa-counter",
                 price: `From $${liveCounter.pricePerPerson} / person`,
               },
@@ -223,14 +223,14 @@ function Home() {
               </h2>
               <p className="mt-6 max-w-md text-muted-foreground">
                 We take the planning off your plate. Every event runs through the
-                same four-step ritual — considered, unhurried, done properly.
+                same four-step ritual â€” considered, unhurried, done properly.
               </p>
             </div>
             <ol className="space-y-6">
               {[
-                ["01", "Enquire", "Send your date, guest count and location — a note about the occasion helps."],
+                ["01", "Enquire", "Send your date, guest count and location â€” a note about the occasion helps."],
                 ["02", "Confirm", "We reply within 24 hours with a quote, menu and secure deposit link."],
-                ["03", "Prepare", "The batter is set to ferment. Staff, tawa, chutneys — all planned to your venue."],
+                ["03", "Prepare", "The batter is set to ferment. Staff, tawa, chutneys â€” all planned to your venue."],
                 ["04", "Serve", "The tawa fires up. Unlimited dosas, on the spot, for as long as your guests want them."],
               ].map(([n, t, d]) => (
                 <li key={n} className="group grid grid-cols-[auto_1fr] gap-6 border-b border-border pb-6 last:border-none">
@@ -322,16 +322,16 @@ function Home() {
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
                 Our batter is fermented for eighteen hours. Chutneys are ground
                 fresh on the day. The tawa runs hot, the coffee runs strong.
-                It's the dosa you remember — served the way it should be
+                It's the dosa you remember â€” served the way it should be
                 served: hot, off the pan, straight to the plate.
               </p>
               <div className="mt-10 grid gap-4 sm:grid-cols-2">
                 {(
                   [
                     [ChefHat, "Chef-led service"],
-                    [Utensils, "Fresh · unlimited"],
+                    [Utensils, "Fresh Â· unlimited"],
                     [Flame, "Cooked to order"],
-                    [Leaf, "Veg · mostly GF"],
+                    [Leaf, "Veg Â· mostly GF"],
                   ] as const
                 ).map(([Icon, label]) => (
                   <div key={label} className="flex items-center gap-3 border-t border-border pt-4">
@@ -378,7 +378,7 @@ function Home() {
                 <ul className="space-y-2.5 text-sm text-cream/80">
                   {p.items.slice(0, 4).map((i) => (
                     <li key={i} className="flex gap-2.5">
-                      <span className="text-accent">◆</span>
+                      <span className="text-accent">â—†</span>
                       <span>{i}</span>
                     </li>
                   ))}
@@ -402,7 +402,7 @@ function Home() {
                 <span className="italic gold-text">Melbourne.</span>
               </h2>
               <p className="mt-5 max-w-sm text-muted-foreground">
-                Not sure if we come to you? Send us your postcode and we'll confirm — usually within the hour.
+                Not sure if we come to you? Send us your postcode and we'll confirm â€” usually within the hour.
               </p>
             </div>
             <div className="flex flex-wrap gap-2 self-center">
@@ -466,7 +466,7 @@ function Home() {
                 <span className="italic gold-text">celebration.</span>
               </h2>
               <p className="mx-auto mt-6 max-w-lg text-cream/70">
-                WhatsApp us for the fastest reply, or send a booking enquiry —
+                WhatsApp us for the fastest reply, or send a booking enquiry â€”
                 we respond to every one within 24 hours.
               </p>
               <div className="mt-10 flex flex-wrap justify-center gap-4">
