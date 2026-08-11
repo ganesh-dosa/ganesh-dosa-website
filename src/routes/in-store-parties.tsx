@@ -5,7 +5,7 @@ import { inStore, menu, faqs } from "@/lib/config";
 export const Route = createFileRoute("/in-store-parties")({
   head: () => ({
     meta: [
-      { title: "In-Store Dosa Parties â€” Ganesh Dosa Melbourne" },
+      { title: "In-Store Dosa Parties — Ganesh Dosa Melbourne" },
       {
         name: "description",
         content: `Host your celebration at Ganesh Dosa. $${inStore.basePrice} for ${inStore.baseGuests} guests, unlimited dosas.`,
@@ -16,15 +16,15 @@ export const Route = createFileRoute("/in-store-parties")({
 });
 
 const sessions = [
-  { time: "12:00 â€” 2:00 PM", label: "Lunch sitting", note: "Ideal for kids parties & family lunches" },
-  { time: "3:00 â€” 5:00 PM", label: "Afternoon", note: "Baby showers, bridal luncheons" },
-  { time: "6:30 â€” 8:30 PM", label: "Evening", note: "Birthdays & housewarming after-parties" },
+  { time: "12:00 — 2:00 PM", label: "Lunch sitting", note: "Ideal for kids parties & family lunches" },
+  { time: "3:00 — 5:00 PM", label: "Afternoon", note: "Baby showers, bridal luncheons" },
+  { time: "6:30 — 8:30 PM", label: "Evening", note: "Birthdays & housewarming after-parties" },
 ];
 
 function InStorePage() {
   return (
     <>
-      {/* HERO â€” split editorial */}
+      {/* HERO — split editorial */}
       <section className="relative overflow-hidden bg-[oklch(0.97_0.018_88)]">
         <div className="mx-auto max-w-7xl px-6 pt-20 pb-20 sm:px-8 sm:pt-28">
           <div className="flex items-center gap-4">
@@ -53,7 +53,7 @@ function InStorePage() {
               href="#menu"
               className="text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-foreground/70 hover:text-primary"
             >
-              See what's on the menu â†’
+              See what's on the menu →
             </a>
           </div>
         </div>
@@ -101,7 +101,7 @@ function InStorePage() {
               </h2>
             </div>
             <p className="max-w-xs text-sm text-muted-foreground">
-              Session times below are indicative â€” final slots are configurable and
+              Session times below are indicative — final slots are configurable and
               pending client confirmation.
             </p>
           </div>

@@ -7,11 +7,11 @@ import { cateringPackages, faqs } from "@/lib/config";
 export const Route = createFileRoute("/catering")({
   head: () => ({
     meta: [
-      { title: "Catering Packages â€” Ganesh Dosa Melbourne" },
+      { title: "Catering Packages — Ganesh Dosa Melbourne" },
       {
         name: "description",
         content:
-          "Three catering tiers â€” Essential, Celebration and Signature Live Counter â€” for Melbourne weddings, birthdays and corporate events.",
+          "Three catering tiers — Essential, Celebration and Signature Live Counter — for Melbourne weddings, birthdays and corporate events.",
       },
     ],
   }),
@@ -20,9 +20,9 @@ export const Route = createFileRoute("/catering")({
 
 
 export const cateringTestimonials = [
-  ["The Celebration tier hit exactly the note we wanted at our engagement â€” abundant, unhurried, and photographed beautifully.", "Meera & Arjun", "Engagement Â· South Yarra"],
-  ["We booked the Signature counter for a 130-person office milestone. The chef was the whole show. Zero fuss.", "Devang", "Corporate Â· Docklands"],
-  ["Essential trays for a family birthday of 25. Warm on arrival, generous portions, everyone asked for the leftovers.", "Kavya", "Birthday Â· Glen Waverley"],
+  ["The Celebration tier hit exactly the note we wanted at our engagement — abundant, unhurried, and photographed beautifully.", "Meera & Arjun", "Engagement · South Yarra"],
+  ["We booked the Signature counter for a 130-person office milestone. The chef was the whole show. Zero fuss.", "Devang", "Corporate · Docklands"],
+  ["Essential trays for a family birthday of 25. Warm on arrival, generous portions, everyone asked for the leftovers.", "Kavya", "Birthday · Glen Waverley"],
 ] as const;
 
 function CateringPage() {
@@ -36,7 +36,7 @@ function CateringPage() {
             <div>
               <div className="flex items-center gap-4">
                 <span className="gold-hairline w-14" aria-hidden />
-                <span className="eyebrow text-accent">Catering Â· Three Tiers</span>
+                <span className="eyebrow text-accent">Catering · Three Tiers</span>
               </div>
               <h1 className="mt-6 font-display text-[clamp(2.5rem,5.5vw,5rem)] font-medium leading-[1.02] text-cream">
                 A tier for every
@@ -44,7 +44,7 @@ function CateringPage() {
                 <span className="italic gold-text">occasion.</span>
               </h1>
               <p className="mt-6 max-w-lg text-cream/70">
-                From a housewarming for twenty to a wedding for one-fifty â€” three
+                From a housewarming for twenty to a wedding for one-fifty — three
                 thoughtfully composed catering menus, or a fully bespoke build.
                 All vegetarian, mostly gluten-free.
               </p>
@@ -78,7 +78,7 @@ function CateringPage() {
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <img
                     src={`/images/catering-package-${i + 1}.jpg`}
-                    alt={`${p.name} â€” ${p.tagline}`}
+                    alt={`${p.name} — ${p.tagline}`}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
@@ -186,7 +186,7 @@ function CateringPage() {
             Ready to <span className="italic gold-text">plan the menu?</span>
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-cream/70">
-            Send an enquiry â€” we'll reply within 24 hours with a tailored quote.
+            Send an enquiry — we'll reply within 24 hours with a tailored quote.
           </p>
           <Link
             to="/booking"

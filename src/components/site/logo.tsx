@@ -3,7 +3,7 @@
 export function Logo({
   className = "",
   size = 40,
-  alt = "Ganesh Dosa â€” Live Dosa, Melbourne",
+  alt = "Ganesh Dosa — Live Dosa, Melbourne",
 }: {
   className?: string;
   size?: number;

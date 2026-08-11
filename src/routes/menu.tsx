@@ -5,8 +5,8 @@ import { PageHeader, Section, SectionHeading } from "@/components/site/section";
 export const Route = createFileRoute("/menu")({
   head: () => ({
     meta: [
-      { title: "Menu â€” Ganesh Dosa" },
-      { name: "description", content: "Ten dosa varieties plus sides â€” the full Ganesh Dosa menu." },
+      { title: "Menu — Ganesh Dosa" },
+      { name: "description", content: "Ten dosa varieties plus sides — the full Ganesh Dosa menu." },
     ],
   }),
   component: MenuPage,

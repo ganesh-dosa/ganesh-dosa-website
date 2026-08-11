@@ -11,7 +11,7 @@ export const Route = createFileRoute("/booking_/success")({
   validateSearch: (s) => searchSchema.parse(s),
   head: () => ({
     meta: [
-      { title: "Booking Confirmed â€” Ganesh Dosa" },
+      { title: "Booking Confirmed — Ganesh Dosa" },
       { name: "robots", content: "noindex" },
       { name: "description", content: "Your Ganesh Dosa booking is confirmed." },
     ],

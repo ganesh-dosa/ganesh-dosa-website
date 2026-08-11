@@ -6,7 +6,7 @@ import { LegalStyles } from "./privacy";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms of Service â€” Ganesh Dosa" },
+      { title: "Terms of Service — Ganesh Dosa" },
       { name: "description", content: "Terms of service for using the Ganesh Dosa website and services." },
     ],
   }),

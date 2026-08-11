@@ -5,7 +5,7 @@ import { PageHeader, Section } from "@/components/site/section";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Admin â€” Ganesh Dosa" },
+      { title: "Admin — Ganesh Dosa" },
       { name: "robots", content: "noindex" },
       { name: "description", content: "Internal admin area." },
     ],

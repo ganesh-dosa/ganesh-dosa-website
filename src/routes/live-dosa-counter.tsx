@@ -7,11 +7,11 @@ import { PageHeader, Section, SectionHeading, ImagePlaceholder } from "@/compone
 export const Route = createFileRoute("/live-dosa-counter")({
   head: () => ({
     meta: [
-      { title: "Live Dosa Counter Melbourne â€” Ganesh Dosa" },
+      { title: "Live Dosa Counter Melbourne — Ganesh Dosa" },
       {
         name: "description",
         content:
-          "$20 per person, unlimited dosas, live counter for 30â€“150 guests. Serving weddings, birthdays and corporate events across Melbourne.",
+          "$20 per person, unlimited dosas, live counter for 30–150 guests. Serving weddings, birthdays and corporate events across Melbourne.",
       },
     ],
   }),
@@ -43,7 +43,7 @@ function LiveCounterPage() {
       <PageHeader
         eyebrow="Live counter"
         title="Live Dosa Counter"
-        intro={`Chef on-site, cast-iron tawa, unlimited dosas. $${liveCounter.pricePerPerson} per person for ${liveCounter.minGuests}â€“${liveCounter.maxGuests} guests.`}
+        intro={`Chef on-site, cast-iron tawa, unlimited dosas. $${liveCounter.pricePerPerson} per person for ${liveCounter.minGuests}–${liveCounter.maxGuests} guests.`}
       />
 
       <Section>
@@ -71,7 +71,7 @@ function LiveCounterPage() {
 
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
               <Stat label="Per person" value={`$${liveCounter.pricePerPerson}`} />
-              <Stat label="Guest range" value={`${liveCounter.minGuests}â€“${liveCounter.maxGuests}`} />
+              <Stat label="Guest range" value={`${liveCounter.minGuests}–${liveCounter.maxGuests}`} />
               <Stat label="Lead time" value={`${liveCounter.leadTimeDays} days`} />
             </div>
           </div>
@@ -130,7 +130,7 @@ function LiveCounterPage() {
                   className="mt-2 w-full rounded-lg border border-input bg-background px-3 py-2 focus:border-primary focus:outline-none"
                 />
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Earliest available: {minDate} Â· minimum {liveCounter.leadTimeDays} days Â· {liveCounter.recommendedLeadTimeDays}+ days recommended.
+                  Earliest available: {minDate} · minimum {liveCounter.leadTimeDays} days · {liveCounter.recommendedLeadTimeDays}+ days recommended.
                 </p>
                 {dateInvalid ? (
                   <p className="mt-2 flex items-center gap-1 text-xs text-destructive">
@@ -148,7 +148,7 @@ function LiveCounterPage() {
                   ${basePrice.toLocaleString()}
                 </p>
                 <p className="mt-2 text-xs text-primary-foreground/80">
-                  {clampedGuests} guests Ã— ${liveCounter.pricePerPerson}
+                  {clampedGuests} guests × ${liveCounter.pricePerPerson}
                 </p>
               </div>
 
@@ -157,7 +157,7 @@ function LiveCounterPage() {
                 <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
                   {liveCounter.addons.map((a) => (
                     <li key={a.id}>
-                      Â· <span className="text-foreground">{a.label}</span> â€” {a.note}
+                      · <span className="text-foreground">{a.label}</span> — {a.note}
                     </li>
                   ))}
                 </ul>
@@ -177,7 +177,7 @@ function LiveCounterPage() {
 
       <Section>
         <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-          <ImagePlaceholder label="Setup shot â€” live counter with chef and guests" />
+          <ImagePlaceholder label="Setup shot — live counter with chef and guests" />
           <div>
             <SectionHeading
               eyebrow="Working rules"
@@ -190,7 +190,7 @@ function LiveCounterPage() {
               <Rule>Idli, medu vada and filter coffee included.</Rule>
               <Rule>Book at least {liveCounter.leadTimeDays} days ahead ({liveCounter.recommendedLeadTimeDays}+ recommended).</Rule>
               <Rule>Free delivery within 10km; $30 one-way up to 100km from Melbourne CBD.</Rule>
-              <Rule>20% deposit to confirm Â· full payment optional Â· secured by Stripe.</Rule>
+              <Rule>20% deposit to confirm · full payment optional · secured by Stripe.</Rule>
             </ul>
           </div>
         </div>

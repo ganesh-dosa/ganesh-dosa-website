@@ -6,8 +6,8 @@ import { PageHeader, Section } from "@/components/site/section";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact â€” Ganesh Dosa Melbourne" },
-      { name: "description", content: "Get in touch with Ganesh Dosa. WhatsApp, phone, email â€” we reply within 24 hours." },
+      { title: "Contact — Ganesh Dosa Melbourne" },
+      { name: "description", content: "Get in touch with Ganesh Dosa. WhatsApp, phone, email — we reply within 24 hours." },
     ],
   }),
   component: ContactPage,
@@ -19,7 +19,7 @@ function ContactPage() {
       <PageHeader
         eyebrow="Contact"
         title="Talk to us"
-        intro="Fastest reply is on WhatsApp. Otherwise, phone or email works â€” we typically get back within 24 hours."
+        intro="Fastest reply is on WhatsApp. Otherwise, phone or email works — we typically get back within 24 hours."
       />
 
       <Section>
@@ -36,7 +36,7 @@ function ContactPage() {
             <div>
               <h3 className="font-display text-xl text-primary">WhatsApp</h3>
               <p className="mt-1 text-sm text-muted-foreground">
-                Fastest way to reach us â€” send a message and we'll reply asap.
+                Fastest way to reach us — send a message and we'll reply asap.
               </p>
               <p className="mt-2 text-sm font-medium">{business.phone}</p>
             </div>

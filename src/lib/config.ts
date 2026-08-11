@@ -10,7 +10,7 @@ export const business = {
   whatsapp: "61416175868", // digits only, no +
   email: "sales@ganeshdosa.com.au",
   address: "5 Glen St, Werribee, VIC",
-  hours: "7 days\nMon â€“ Fri: 3:00 PM â€“ 11:00 PM\nSat â€“ Sun: 9:00 AM â€“ Midnight",
+  hours: "7 days\nMon – Fri: 3:00 PM – 11:00 PM\nSat – Sun: 9:00 AM – Midnight",
   instagram: "https://www.instagram.com/ganesh_dosa_melbourne/",
   facebook: "https://www.facebook.com/profile.php?id=61592175580887",
   get serviceAreas() {
@@ -112,7 +112,7 @@ export const liveCounter = {
   ],
   // Configurable add-ons.
   addons: [
-    { id: "travel", label: "Travel surcharge", note: "$30 one way beyond 10km Â· up to 100km from Melbourne CBD" },
+    { id: "travel", label: "Travel surcharge", note: "$30 one way beyond 10km · up to 100km from Melbourne CBD" },
     { id: "cutlery", label: "Plates, cutlery, cups & glasses", note: "$2 per person" },
     { id: "staff", label: "Additional staff", note: "Extra chef or service staff" },
     { id: "time", label: "Additional service time", note: "Beyond standard service window" },
@@ -142,16 +142,16 @@ export const payments = {
   note: "A minimum 20% deposit is required to confirm your booking. You may choose to pay the full amount in advance. Secure payments via Stripe.",
 } as const;
 
-// Google Forms integration â€” booking submissions are POSTed to a Google Form
+// Google Forms integration — booking submissions are POSTed to a Google Form
 // so responses are collected in a Google Sheet automatically.
 //
 // SETUP (one-off, ~5 min):
 //   1. Create a Google Form with these fields (short answer / paragraph):
 //      Name, Email, Phone, Suburb, Service, Guests, Date, Time,
 //      Event Type, Extras, Distance (km), Payment, Total (AUD), Notes.
-//   2. Open the form, view page source, and search for `entry.` â€” each
+//   2. Open the form, view page source, and search for `entry.` — each
 //      question has an `entry.XXXXXXXXX` id. Paste them below.
-//   3. Copy the form URL â€” the ID is the long token between `/d/e/` and
+//   3. Copy the form URL — the ID is the long token between `/d/e/` and
 //      `/viewform`. Paste it as `formId`.
 //   4. In the form's Responses tab, click the Sheets icon to auto-collect
 //      submissions in a spreadsheet.
@@ -227,7 +227,7 @@ export const cateringPackages = [
   },
   {
     id: "package-3",
-    name: "Package 3 â€” South Indian Feast",
+    name: "Package 3 — South Indian Feast",
     tagline: "An authentic South Indian banquet for special occasions.",
     priceFrom: 30, // per person
     minGuests: 25,
@@ -248,14 +248,14 @@ export const cateringPackages = [
 
 export const menu = {
   dosas: [
-    { name: "Plain Dosa", desc: "The classic â€” thin, crisp, golden." },
+    { name: "Plain Dosa", desc: "The classic — thin, crisp, golden." },
     { name: "Masala Dosa", desc: "Spiced potato filling with house chutneys." },
     { name: "Mysore Masala Dosa", desc: "Fiery red chutney with potato masala." },
     { name: "Podi Dosa", desc: "Dusted with fragrant lentil-chilli podi." },
     { name: "Onion Dosa", desc: "Crisp dosa loaded with sweet onion and curry leaves." },
-    { name: "Pizza Dosa", desc: "A playful twist â€” cheese, tomato and herbs." },
+    { name: "Pizza Dosa", desc: "A playful twist — cheese, tomato and herbs." },
     { name: "Paneer Dosa", desc: "Spiced paneer bhurji filling." },
-    { name: "Cheese Dosa", desc: "A family favourite â€” melted cheese, crisp shell." },
+    { name: "Cheese Dosa", desc: "A family favourite — melted cheese, crisp shell." },
     { name: "Ghee Dosa", desc: "Extra crisp, brushed generously with ghee." },
     { name: "Chocolate Dosa", desc: "For the kids (and the young at heart)." },
   ],
@@ -271,15 +271,15 @@ export const menu = {
 export const faqs = [
   {
     q: "How far in advance should I book?",
-    a: "We recommend booking at least 10 days ahead so we can plan staff, ingredients and travel. The absolute minimum is 5 days â€” anything shorter cannot be accepted.",
+    a: "We recommend booking at least 10 days ahead so we can plan staff, ingredients and travel. The absolute minimum is 5 days — anything shorter cannot be accepted.",
   },
   {
     q: "Where do you operate?",
-    a: "We service events across greater Melbourne. Travel beyond the CBD may attract a small surcharge â€” we'll confirm this when you book.",
+    a: "We service events across greater Melbourne. Travel beyond the CBD may attract a small surcharge — we'll confirm this when you book.",
   },
   {
     q: "How many guests can you cater for?",
-    a: "Our live counter serves 30â€“150 guests. For larger events, get in touch and we'll tailor a solution.",
+    a: "Our live counter serves 30–150 guests. For larger events, get in touch and we'll tailor a solution.",
   },
   {
     q: "What's included in the live counter package?",

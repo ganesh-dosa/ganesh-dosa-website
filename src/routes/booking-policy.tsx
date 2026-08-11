@@ -6,7 +6,7 @@ import { LegalStyles } from "./privacy";
 export const Route = createFileRoute("/booking-policy")({
   head: () => ({
     meta: [
-      { title: "Booking Policy â€” Ganesh Dosa" },
+      { title: "Booking Policy — Ganesh Dosa" },
       { name: "description", content: "How bookings, deposits and confirmations work with Ganesh Dosa." },
     ],
   }),
@@ -34,7 +34,7 @@ function BookingPolicyPage() {
           <h3>Quotes and deposits</h3>
           <p>
             As you enter your event details on our booking page, you'll see a live
-            quotation update in real time â€” no need to wait for a written quote.
+            quotation update in real time — no need to wait for a written quote.
             A minimum 20% deposit is required to secure your date, or you may pay
             the full amount upfront; the balance (if any) is due before the event.
             Payment is processed securely online via Stripe.

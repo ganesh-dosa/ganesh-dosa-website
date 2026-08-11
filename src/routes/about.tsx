@@ -5,8 +5,8 @@ import { PageHeader, Section, SectionHeading } from "@/components/site/section";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About â€” Ganesh Dosa" },
-      { name: "description", content: "The story behind Ganesh Dosa â€” Melbourne's live dosa counter for celebrations of every size." },
+      { title: "About — Ganesh Dosa" },
+      { name: "description", content: "The story behind Ganesh Dosa — Melbourne's live dosa counter for celebrations of every size." },
     ],
   }),
   component: AboutPage,
@@ -26,7 +26,7 @@ function AboutPage() {
           <p>
             Our chef trained in the tiffin houses of Bengaluru before moving to
             Melbourne, and every batter that leaves our kitchen is fermented the
-            old way â€” slow, patient, and by hand.
+            old way — slow, patient, and by hand.
           </p>
           <p>
             Today, we run live dosa counters at weddings, corporate lunches,

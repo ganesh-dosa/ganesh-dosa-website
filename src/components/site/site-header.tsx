@@ -42,7 +42,7 @@ export function SiteHeader() {
           to="/"
           className="flex items-center gap-3"
           onClick={() => setOpen(false)}
-          aria-label="Ganesh Dosa â€” Home"
+          aria-label="Ganesh Dosa — Home"
         >
           <Logo size={56} className="h-12 w-12 shrink-0 object-contain sm:h-14 sm:w-14 lg:h-20 lg:w-20" />
           <span className="block min-w-0">

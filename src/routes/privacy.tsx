@@ -5,7 +5,7 @@ import { PageHeader, Section } from "@/components/site/section";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy â€” Ganesh Dosa" },
+      { title: "Privacy Policy — Ganesh Dosa" },
       { name: "description", content: "How Ganesh Dosa collects, uses and protects your personal information." },
     ],
   }),

@@ -81,14 +81,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Ganesh Dosa â€” Live Dosa Catering in Melbourne" },
+      { title: "Ganesh Dosa — Live Dosa Catering in Melbourne" },
       {
         name: "description",
         content:
-          "Ganesh Dosa brings a live dosa counter to your celebration in Melbourne â€” unlimited dosas, freshly made, for parties, weddings and corporate events.",
+          "Ganesh Dosa brings a live dosa counter to your celebration in Melbourne — unlimited dosas, freshly made, for parties, weddings and corporate events.",
       },
       { name: "author", content: "Ganesh Dosa" },
-      { property: "og:title", content: "Ganesh Dosa â€” Live Dosa Catering in Melbourne" },
+      { property: "og:title", content: "Ganesh Dosa — Live Dosa Catering in Melbourne" },
       {
         property: "og:description",
         content:
